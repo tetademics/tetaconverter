@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>{% if active_category %}{{ active_category.name }} - {% elif active_tag %}{{ active_tag }} - {% endif %}Blog - Teta Converter</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/png" href="/static/logo.png"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "text-secondary": "#64748B",
+            "outline": "#777587",
+            "secondary-fixed-dim": "#4edea3",
+            "on-secondary-fixed": "#002113",
+            "on-tertiary-fixed": "#351000",
+            "surface-dim": "#d9dadb",
+            "text-primary": "#1E293B",
+            "tertiary": "#7e3000",
+            "surface-container-low": "#f3f4f5",
+            "on-secondary-fixed-variant": "#005236",
+            "tertiary-fixed": "#ffdbcc",
+            "outline-variant": "#c7c4d8",
+            "inverse-on-surface": "#f0f1f2",
+            "surface-container-lowest": "#ffffff",
+            "primary": "#3525cd",
+            "on-primary-fixed": "#0f0069",
+            "primary-fixed": "#e2dfff",
+            "surface-container": "#edeeef",
+            "secondary": "#006c49",
+            "on-tertiary-fixed-variant": "#7b2f00",
+            "on-primary": "#ffffff",
+            "surface": "#f8f9fa",
+            "on-primary-container": "#dad7ff",
+            "on-secondary-container": "#00714d",
+            "surface-bright": "#f8f9fa",
+            "secondary-fixed": "#6ffbbe",
+            "on-tertiary": "#ffffff",
+            "on-error": "#ffffff",
+            "on-surface-variant": "#464555",
+            "on-primary-fixed-variant": "#3323cc",
+            "inverse-surface": "#2e3132",
+            "on-background": "#191c1d",
+            "on-surface": "#191c1d",
+            "surface-variant": "#e1e3e4",
+            "background": "#f8f9fa",
+            "primary-container": "#4f46e5",
+            "secondary-container": "#6cf8bb",
+            "surface-white": "#FFFFFF",
+            "primary-fixed-dim": "#c3c0ff",
+            "surface-container-highest": "#e1e3e4",
+            "surface-container-high": "#e7e8e9",
+            "on-tertiary-container": "#ffd2be",
+            "on-error-container": "#93000a",
+            "surface-tint": "#4d44e3",
+            "on-secondary": "#ffffff",
+            "inverse-primary": "#c3c0ff",
+            "error-container": "#ffdad6",
+            "tertiary-container": "#a44100",
+            "tertiary-fixed-dim": "#ffb695",
+            "error-red": "#EF4444",
+            "error": "#ba1a1a",
+            "border-subtle": "#E2E8F0"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-mobile": "1rem",
+            "section-gap": "4rem",
+            "gutter": "1.5rem",
+            "container-max": "1200px",
+            "element-gap": "1rem",
+            "article-max": "720px"
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+</head>
+<body class="bg-background text-text-primary font-body-md antialiased pt-14 min-h-screen flex flex-col">
+
+  <!-- TopNavBar -->
+  <header class="bg-surface-white border-b border-border-subtle fixed top-0 left-0 w-full z-40 shadow-sm">
+    <div class="flex items-center justify-between px-4 md:px-6 h-14 max-w-[1200px] mx-auto">
+      <div class="flex items-center gap-3">
+        <a class="font-bold text-primary flex items-center gap-2" href="/">
+          <img src="/static/logo.png" alt="Teta Converter" class="h-8 w-8 rounded-lg">
+          <span class="text-base md:text-lg">Teta Converter</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-5 ml-4">
+          <a class="text-text-secondary text-sm hover:text-primary transition-colors" href="/">Converter</a>
+          <a class="text-text-secondary text-sm hover:text-primary transition-colors" href="/pdf-tools">PDF Tools</a>
+          <a class="text-primary text-sm font-semibold border-b-2 border-primary pb-0.5" href="/blog">Blog</a>
+        </nav>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="https://selar.com/showlove/tetadigitals?currency=USD" target="_blank" class="hidden md:flex items-center gap-1.5 border border-border-subtle bg-surface-container text-text-primary px-3 py-1.5 rounded-lg text-xs hover:bg-surface-variant transition-colors active:scale-95">
+          <span class="material-symbols-outlined text-tertiary text-base" style="font-variation-settings: 'FILL' 1;">local_cafe</span>
+          Buy me a coffee
+        </a>
+        <button id="mobile-menu-btn" class="md:hidden text-text-primary p-1">
+          <span class="material-symbols-outlined text-2xl">menu</span>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden border-t border-border-subtle bg-surface-white px-4 py-3 flex flex-col gap-2">
+      <a class="text-text-secondary text-sm py-2 hover:text-primary transition-colors" href="/">Converter</a>
+      <a class="text-text-secondary text-sm py-2 hover:text-primary transition-colors" href="/pdf-tools">PDF Tools</a>
+      <a class="text-primary text-sm py-2 font-semibold" href="/blog">Blog</a>
+      <a href="https://selar.com/showlove/tetadigitals?currency=USD" target="_blank" class="flex items-center gap-1.5 text-tertiary text-sm py-2 font-semibold">
+        <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">local_cafe</span>
+        Buy me a coffee
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow max-w-container-max mx-auto px-gutter py-12 w-full">
+    <!-- Page Header -->
+    <header class="mb-12 text-center md:text-left flex flex-col gap-6">
+      <div>
+        <h1 class="font-display-lg text-4xl md:text-5xl font-extrabold text-text-primary mb-2">Our Blog</h1>
+        <p class="text-text-secondary text-sm md:text-base">Tips, tutorials, and articles on file conversion, productivity, and tech insights.</p>
+      </div>
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <!-- Filters -->
+        <div class="flex gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-hide">
+          <a href="/blog" class="px-5 py-2.5 rounded-full font-semibold text-xs transition-all whitespace-nowrap {% if not active_category and not active_tag %}bg-primary text-on-primary shadow-sm{% else %}bg-surface-white text-text-secondary border border-border-subtle hover:bg-surface-container{% endif %}">All</a>
+          {% for cat in categories %}
+            <a href="/blog/category/{{ cat.slug }}" class="px-5 py-2.5 rounded-full font-semibold text-xs transition-all whitespace-nowrap {% if active_category and active_category.slug == cat.slug %}bg-primary text-on-primary shadow-sm{% else %}bg-surface-white text-text-secondary border border-border-subtle hover:bg-surface-container{% endif %}">{{ cat.name }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </header>
+
+    <!-- Post Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {% if posts %}
+        {% for post in posts %}
+          <article onclick="window.location.href='/blog/{{ post.slug }}'" class="bg-surface-white border border-border-subtle rounded-xl overflow-hidden hover:border-primary transition-all duration-200 group flex flex-col h-full cursor-pointer shadow-sm">
+            <div class="aspect-[16/9] w-full overflow-hidden bg-surface-container relative border-b border-border-subtle flex items-center justify-center">
+              <span class="material-symbols-outlined text-outline-variant text-7xl group-hover:scale-105 transition-transform duration-300">article</span>
+            </div>
+            <div class="p-6 flex flex-col flex-grow gap-3">
+              {% if post.category_name %}
+                <span class="inline-block px-2.5 py-1 bg-surface-container-low border border-border-subtle text-text-secondary text-xs font-semibold rounded mb-1 w-max">{{ post.category_name }}</span>
+              {% endif %}
+              <h2 class="font-bold text-lg text-text-primary group-hover:text-primary transition-colors line-clamp-2 leading-snug">{{ post.title }}</h2>
+              <p class="text-sm text-text-secondary line-clamp-3 leading-relaxed flex-grow">{{ post.excerpt or post.content[:160]|replace('<', '')|replace('>', '') }}</p>
+              <a class="font-bold text-xs text-primary inline-flex items-center gap-1 hover:text-surface-tint transition-colors mt-auto" href="/blog/{{ post.slug }}">
+                Read More <span class="material-symbols-outlined text-xs font-bold">arrow_forward</span>
+              </a>
+            </div>
+          </article>
+        {% endfor %}
+      {% else %}
+        <div class="col-span-3 text-center py-20 flex flex-col items-center gap-3">
+          <span class="material-symbols-outlined text-outline-variant text-6xl">feed</span>
+          <p class="text-text-secondary font-medium">No articles found. Check back soon!</p>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Pagination -->
+    {% if total_pages > 1 %}
+      <div class="mt-12 flex justify-center items-center gap-4">
+        {% if page > 1 %}
+          <a href="?page={{ page - 1 }}" class="px-4 py-2 border border-border-subtle rounded-lg text-text-primary font-semibold text-sm hover:bg-surface-container-low transition-colors">
+            Previous
+          </a>
+        {% else %}
+          <button class="px-4 py-2 border border-border-subtle rounded-lg text-text-secondary font-semibold text-sm opacity-50 cursor-not-allowed" disabled>
+            Previous
+          </button>
+        {% endif %}
+        <span class="text-sm font-semibold text-text-secondary">Page {{ page }} of {{ total_pages }}</span>
+        {% if page < total_pages %}
+          <a href="?page={{ page + 1 }}" class="px-4 py-2 border border-border-subtle rounded-lg text-text-primary font-semibold text-sm hover:bg-surface-container-low transition-colors">
+            Next
+          </a>
+        {% else %}
+          <button class="px-4 py-2 border border-border-subtle rounded-lg text-text-secondary font-semibold text-sm opacity-50 cursor-not-allowed" disabled>
+            Next
+          </button>
+        {% endif %}
+      </div>
+    {% endif %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-surface-white border-t border-border-subtle w-full py-6 px-4 md:px-6 mt-auto">
+    <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="flex flex-col items-center md:items-start gap-1 text-center md:text-left">
+        <span class="font-bold text-sm text-primary flex items-center gap-1">
+          <img src="/static/logo.png" alt="Teta Converter" class="h-5 w-5 rounded">
+          Teta Converter
+        </span>
+        <p class="text-xs text-text-secondary">&copy; 2026 Teta Converter. Powered by <a href="#" class="hover:underline font-semibold text-text-primary">TetaDigitals</a></p>
+      </div>
+      <nav class="flex flex-wrap justify-center gap-4 text-xs text-text-secondary">
+        <a class="hover:text-primary transition-colors" href="/">Converter</a>
+        <a class="hover:text-primary transition-colors" href="/pdf-tools">PDF Tools</a>
+        <a class="hover:text-primary transition-colors" href="/blog">Blog</a>
+        <a class="hover:text-primary transition-colors text-amber-500 font-semibold" href="https://selar.com/showlove/tetadigitals?currency=USD" target="_blank">Buy me a coffee</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

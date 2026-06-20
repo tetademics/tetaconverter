@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Teta Converter - Fast, Free and Secure File Converter</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/static/logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "text-secondary": "#64748B",
+            "outline": "#777587",
+            "secondary-fixed-dim": "#4edea3",
+            "on-secondary-fixed": "#002113",
+            "on-tertiary-fixed": "#351000",
+            "surface-dim": "#d9dadb",
+            "text-primary": "#1E293B",
+            "tertiary": "#7e3000",
+            "surface-container-low": "#f3f4f5",
+            "on-secondary-fixed-variant": "#005236",
+            "tertiary-fixed": "#ffdbcc",
+            "outline-variant": "#c7c4d8",
+            "inverse-on-surface": "#f0f1f2",
+            "surface-container-lowest": "#ffffff",
+            "primary": "#3525cd",
+            "on-primary-fixed": "#0f0069",
+            "primary-fixed": "#e2dfff",
+            "surface-container": "#edeeef",
+            "secondary": "#006c49",
+            "on-tertiary-fixed-variant": "#7b2f00",
+            "on-primary": "#ffffff",
+            "surface": "#f8f9fa",
+            "on-primary-container": "#dad7ff",
+            "on-secondary-container": "#00714d",
+            "surface-bright": "#f8f9fa",
+            "secondary-fixed": "#6ffbbe",
+            "on-tertiary": "#ffffff",
+            "on-error": "#ffffff",
+            "on-surface-variant": "#464555",
+            "on-primary-fixed-variant": "#3323cc",
+            "inverse-surface": "#2e3132",
+            "on-background": "#191c1d",
+            "on-surface": "#191c1d",
+            "surface-variant": "#e1e3e4",
+            "background": "#f8f9fa",
+            "primary-container": "#4f46e5",
+            "secondary-container": "#6cf8bb",
+            "surface-white": "#FFFFFF",
+            "primary-fixed-dim": "#c3c0ff",
+            "surface-container-highest": "#e1e3e4",
+            "surface-container-high": "#e7e8e9",
+            "on-tertiary-container": "#ffd2be",
+            "on-error-container": "#93000a",
+            "surface-tint": "#4d44e3",
+            "on-secondary": "#ffffff",
+            "inverse-primary": "#c3c0ff",
+            "error-container": "#ffdad6",
+            "tertiary-container": "#a44100",
+            "tertiary-fixed-dim": "#ffb695",
+            "error-red": "#EF4444",
+            "error": "#ba1a1a",
+            "border-subtle": "#E2E8F0"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-mobile": "1rem",
+            "section-gap": "4rem",
+            "gutter": "1.5rem",
+            "container-max": "1200px",
+            "element-gap": "1rem",
+            "article-max": "720px"
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .spinner {
+      display: inline-block; width: 14px; height: 14px;
+      border: 2px solid #E2E8F0; border-top-color: #3525cd;
+      border-radius: 50%; animation: spin 0.6s linear infinite;
+      vertical-align: middle; margin-right: 6px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body class="bg-surface text-text-primary font-body-md antialiased min-h-screen flex flex-col pt-14">
+
+  <!-- TopNavBar -->
+  <header class="bg-surface-white border-b border-border-subtle fixed top-0 left-0 w-full z-40 shadow-sm">
+    <div class="flex items-center justify-between px-4 md:px-6 h-14 max-w-[1200px] mx-auto">
+      <div class="flex items-center gap-3">
+        <a class="font-bold text-primary flex items-center gap-2" href="/">
+          <img src="/static/logo.png" alt="Teta Converter" class="h-8 w-8 rounded-lg">
+          <span class="text-base md:text-lg">Teta Converter</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-5 ml-4">
+          <a class="text-text-secondary text-sm hover:text-primary transition-colors" href="/">Converter</a>
+          <a class="text-text-secondary text-sm hover:text-primary transition-colors" href="/pdf-tools">PDF Tools</a>
+          <a class="text-text-secondary text-sm hover:text-primary transition-colors" href="/blog">Blog</a>
+        </nav>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="https://selar.com/showlove/tetadigitals?currency=USD" target="_blank" class="hidden md:flex items-center gap-1.5 border border-border-subtle bg-surface-container text-text-primary px-3 py-1.5 rounded-lg text-xs hover:bg-surface-variant transition-colors active:scale-95">
+          <span class="material-symbols-outlined text-tertiary text-base" style="font-variation-settings: 'FILL' 1;">local_cafe</span>
+          Buy me a coffee
+        </a>
+        <button id="mobile-menu-btn" class="md:hidden text-text-primary p-1">
+          <span class="material-symbols-outlined text-2xl">menu</span>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-border-subtle bg-surface-white px-4 py-3 flex flex-col gap-2">
+      <a class="text-text-secondary text-sm py-2 hover:text-primary transition-colors" href="/">Converter</a>
+      <a class="text-text-secondary text-sm py-2 hover:text-primary transition-colors" href="/pdf-tools">PDF Tools</a>
+      <a class="text-text-secondary text-sm py-2 hover:text-primary transition-colors" href="/blog">Blog</a>
+      <a href="https://selar.com/showlove/tetadigitals?currency=USD" target="_blank" class="flex items-center gap-1.5 text-tertiary text-sm py-2 font-semibold">
+        <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">local_cafe</span>
+        Buy me a coffee
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow flex flex-col items-center justify-start w-full max-w-container-max mx-auto px-margin-mobile md:px-gutter py-12 gap-12">
+    
+    <!-- Hero Section -->
+    <section class="text-center w-full max-w-3xl flex flex-col gap-3">
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-text-primary">Teta Converter</h1>
+      <p class="text-lg md:text-xl text-text-secondary">Fast, free, and secure batch file conversion.</p>
+    </section>
+
+    <!-- Converter Interface Card -->
+    <section class="w-full max-w-4xl bg-surface-white border border-border-subtle rounded-xl p-6 flex flex-col gap-6 shadow-sm">
+      
+      <!-- Tabs -->
+      <div class="flex flex-wrap gap-2 pb-4 border-b border-border-subtle" id="nav-tabs">
+        <button class="px-5 py-2.5 bg-primary text-on-primary rounded-full font-label-md transition-all active:scale-95 duration-150 shadow-sm" data-tab="pdf">PDF</button>
+        <button class="px-5 py-2.5 text-text-secondary hover:bg-surface-container rounded-full font-label-md transition-all active:scale-95 duration-150" data-tab="image">Image</button>
+        <button class="px-5 py-2.5 text-text-secondary hover:bg-surface-container rounded-full font-label-md transition-all active:scale-95 duration-150" data-tab="audio">Audio</button>
+        <button class="px-5 py-2.5 text-text-secondary hover:bg-surface-container rounded-full font-label-md transition-all active:scale-95 duration-150" data-tab="video">Video</button>
+        <button class="px-5 py-2.5 text-text-secondary hover:bg-surface-container rounded-full font-label-md transition-all active:scale-95 duration-150" data-tab="spreadsheet">Spreadsheet</button>
+        <button class="px-5 py-2.5 text-text-secondary hover:bg-surface-container rounded-full font-label-md transition-all active:scale-95 duration-150" data-tab="document">Document</button>
+      </div>
+
+      <!-- Content Panes -->
+      <div id="converter-panes" class="flex flex-col gap-6">
+
+        <!-- PDF Pane -->
+        <div id="pane-pdf" class="converter-pane flex flex-col gap-6">
+          <div class="border-2 border-dashed border-outline-variant rounded-xl p-10 flex flex-col items-center justify-center gap-3 bg-surface hover:bg-primary/5 transition-colors cursor-pointer group" id="dz-pdf">
+            <span class="material-symbols-outlined text-5xl text-primary group-hover:scale-110 transition-transform duration-300">upload_file</span>
+            <p class="font-headline-md text-xl font-semibold text-text-primary text-center">Drop PDFs here or click to browse</p>
+            <p class="font-body-md text-sm text-text-secondary text-center">Max 10 files, up to 50 MB each</p>
+            <input type="file" id="fi-pdf" accept=".pdf" multiple hidden>
+          </div>
+          <div class="flex flex-col gap-2 max-h-48 overflow-y-auto w-full empty:hidden" id="fl-pdf"></div>
+          <div class="flex flex-col sm:flex-row items-center gap-4 w-full">
+            <div class="flex flex-col w-full sm:w-1/3">
+              <label class="font-label-sm text-xs font-semibold text-text-secondary mb-1">Output Format</label>
+              <select id="sel-pdf" class="w-full border border-border-subtle rounded-lg bg-surface-white px-3 py-2.5 font-body-md text-text-primary focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+                <option value="md">Markdown</option>
+                <option value="json">JSON</option>
+                <option value="docx">Word (.docx)</option>
+              </select>
+            </div>
+            <div class="flex-grow w-full flex flex-col justify-end h-full">
+              <span class="block h-5"></span> <!-- Spacer alignment -->
+              <button class="w-full bg-primary text-on-primary font-semibold py-3 rounded-lg hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-md" id="btn-pdf" disabled>Convert All</button>
+            </div>
+          </div>
+          <p class="status text-center text-sm font-medium mt-1" id="st-pdf"></p>
+        </div>
+
+        <!-- Image Pane -->
+        <div id="pane-image" class="converter-pane hidden flex flex-col gap-6">
+          <div class="border-2 border-dashed border-outline-variant rounded-xl p-10 flex flex-col items-center justify-center gap-3 bg-surface hover:bg-primary/5 transition-colors cursor-pointer group" id="dz-img">
+            <span class="material-symbols-outlined text-5xl text-primary group-hover:scale-110 transition-transform duration-300">image</span>
+            <p class="font-headline-md text-xl font-semibold text-text-primary text-center">Drop images here or click to browse</p>
+            <p class="font-body-md text-sm text-text-secondary text-center">PNG, JPG, WebP, BMP, ICO, TIFF, GIF — Max 10 files</p>
+            <input type="file" id="fi-img" accept="image/*" multiple hidden>
+          </div>
+          <div class="flex flex-col gap-2 max-h-48 overflow-y-auto w-full empty:hidden" id="fl-img"></div>
+          <div class="flex flex-col gap-4">
+            <div>
+              <label class="font-label-sm text-xs font-semibold text-text-secondary mb-2 block">Output Format</label>
+              <div class="flex flex-wrap gap-2" id="img-formats">
+                <button class="format-chip px-4 py-2 rounded-full border border-border-subtle text-center font-semibold text-xs transition-all cursor-pointer bg-primary text-on-primary shadow-sm" data-fmt="png">PNG</button>
+                <button class="format-chip px-4 py-2 rounded-full border border-border-subtle text-center font-semibold text-xs transition-all cursor-pointer bg-surface-white text-text-secondary hover:bg-surface-container" data-fmt="jpg">JPG</button>
+                <button class="format-chip px-4 py-2 rounded-full border border-border-subtle text-center font-semibold text-xs transition-all cursor-pointer bg-surface-white text-text-secondary hover:bg-surface-container" data-fmt="webp">WebP</button>
+                <button class="format-chip px-4 py-2 rounded-full border border-border-subtle text-center font-semibold text-xs transition-all cursor-pointer bg-surface-white text-text-secondary hover:bg-surface-container" data-fmt="bmp">BMP</button>
+                <button class="format-chip px-4 py-2 rounded-full border border-border-subtle text-center font-semibold text-xs transition-all cursor-pointer bg-surface-white text-text-secondary hover:bg-surface-container" data-fmt="ico">ICO</button>
+                <button class="format-chip px-4 py-2 rounded-full border border-border-subtle text-center font-semibold text-xs transition-all cursor-pointer bg-surface-white text-text-secondary hover:bg-surface-container" data-fmt="tiff">TIFF</button>
+                <button class="format-chip px-4 py-2 rounded-full border border-border-subtle text-center font-semibold text-xs transition-all cursor-pointer bg-surface-white text-text-secondary hover:bg-surface-container" data-fmt="gif">GIF</button>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="flex flex-col">
+                <label class="font-label-sm text-xs font-semibold text-text-secondary mb-1">Quality (1-100)</label>
+                <input type="number" id="iq" value="90" min="1" max="100" class="w-full border border-border-subtle rounded-lg bg-surface-white px-3 py-2.5 font-body-md text-text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+              </div>
+              <div class="flex flex-col">
+                <label class="font-label-sm text-xs font-semibold text-text-secondary mb-1">Width (px)</label>
+                <input type="number" id="iw" placeholder="auto" min="1" class="w-full border border-border-subtle rounded-lg bg-surface-white px-3 py-2.5 font-body-md text-text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+              </div>
+              <div class="flex flex-col">
+                <label class="font-label-sm text-xs font-semibold text-text-secondary mb-1">Height (px)</label>
+                <input type="number" id="ih" placeholder="auto" min="1" class="w-full border border-border-subtle rounded-lg bg-surface-white px-3 py-2.5 font-body-md text-text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+              </div>
+            </div>
+            <button class="w-full bg-primary text-on-primary font-semibold py-3 rounded-lg hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-md mt-2" id="btn-img" disabled>Convert All</button>
+          </div>
+          <p class="status text-center text-sm font-medium mt-1" id="st-img"></p>
+        </div>
+
+        <!-- Audio Pane -->
+        <div id="pane-audio" class="converter-pane hidden flex flex-col gap-6">
+          <div class="border-2 border-dashed border-outline-variant rounded-xl p-10 flex flex-col items-center justify-center gap-3 bg-surface hover:bg-primary/5 transition-colors cursor-pointer group" id="dz-audio">
+            <span class="material-symbols-outlined text-5xl text-primary group-hover:scale-110 transition-transform duration-300">audiotrack</span>
+            <p class="font-headline-md text-xl font-semibold text-text-primary text-center">Drop audio files here or click to browse</p>
+            <p class="font-body-md text-sm text-text-secondary text-center">MP3, WAV, AAC, FLAC, OGG, M4A, WMA — Max 10 files</p>
+            <input type="file" id="fi-audio" accept="audio/*" multiple hidden>
+          </div>
+          <div class="flex flex-col gap-2 max-h-48 overflow-y-auto w-full empty:hidden" id="fl-audio"></div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+            <div class="flex flex-col">
+              <label class="font-label-sm text-xs font-semibold text-text-secondary mb-1">Output Format</label>
+              <select id="sel-audio" class="w-full border border-border-subtle rounded-lg bg-surface-white px-3 py-2.5 font-body-md text-text-primary focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+                <option value="mp3">MP3</option>
+                <option value="wav">WAV</option>
+                <option value="aac">AAC</option>
+                <option value="flac">FLAC</option>
+                <option value="ogg">OGG</option>
+                <option value="m4a">M4A</option>
+                <option value="wma">WMA</option>
+              </select>
+            </div>
+            <div class="flex flex-col">
+              <label class="font-label-sm text-xs font-semibold text-text-secondary mb-1">Bitrate</label>
+              <select id="sel-bitrate" class="w-full border border-border-subtle rounded-lg bg-surface-white px-3 py-2.5 font-body-md text-text-primary focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+                <option value="128k">128 kbps</option>
+                <option value="192k" selected>192 kbps</option>
+                <option value="256k">256 kbps</option>
+                <option value="320k">320 kbps</option>
+              </select>
+            </div>
+          </div>
+          <button class="w-full bg-primary text-on-primary font-semibold py-3 rounded-lg hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-md" id="btn-audio" disabled>Convert All</button>
+          <p class="status text-center text-sm font-medium" id="st-audio"></p>
+        </div>
+
+        <!-- Video Pane -->
+        <div id="pane-video" class="converter-pane hidden flex flex-col gap-6">
+          <div class="border-2 border-dashed border-outline-variant rounded-xl p-10 flex flex-col items-center justify-center gap-3 bg-surface hover:bg-primary/5 transition-colors cursor-pointer group" id="dz-vid">
+            <span class="material-symbols-outlined text-5xl text-primary group-hover:scale-110 transition-transform duration-300">movie</span>
+            <p class="font-headline-md text-xl font-semibold text-text-primary text-center">Drop videos here or click to browse</p>
+            <p class="font-body-md text-sm text-text-secondary text-center">MP4, AVI, MOV, MKV, WebM — Max 10 files</p>
+            <input type="file" id="fi-vid" accept="video/*" multiple hidden>
+          </div>
+          <div class="flex flex-col gap-2 max-h-48 overflow-y-auto w-full empty:hidden" id="fl-vid"></div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="flex flex-col">
+              <label class="font-label-sm text-xs font-semibold text-text-secondary mb-1">FPS (Max 30)</label>
+              <input type="number" id="vfps" value="8" min="1" max="30" class="w-full border border-border-subtle rounded-lg bg-surface-white px-3 py-2.5 font-body-md text-text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+            </div>
+            <div class="flex flex-col">
+              <label class="font-label-sm text-xs font-semibold text-text-secondary mb-1">Width (px)</label>
+              <input type="number" id="vw" value="480" placeholder="480" min="1" class="w-full border border-border-subtle rounded-lg bg-surface-white px-3 py-2.5 font-body-md text-text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+            </div>
+            <div class="flex flex-col">
+              <label class="font-label-sm text-xs font-semibold text-text-secondary mb-1">Start (sec)</label>
+              <input type="number" id="vstart" value="0" min="0" step="0.1" class="w-full border border-border-subtle rounded-lg bg-surface-white px-3 py-2.5 font-body-md text-text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+            </div>
+            <div class="flex flex-col">
+              <label class="font-label-sm text-xs font-semibold text-text-secondary mb-1">Duration (sec)</label>
+              <input type="number" id="vdur" placeholder="full" min="0.1" step="0.1" class="w-full border border-border-subtle rounded-lg bg-surface-white px-3 py-2.5 font-body-md text-text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+            </div>
+          </div>
+          <button class="w-full bg-primary text-on-primary font-semibold py-3 rounded-lg hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-md" id="btn-vid" disabled>Convert All</button>
+          <p class="status text-center text-sm font-medium" id="st-vid"></p>
+        </div>
+
+        <!-- Spreadsheet Pane -->
+        <div id="pane-spreadsheet" class="converter-pane hidden flex flex-col gap-6">
+          <div class="border-2 border-dashed border-outline-variant rounded-xl p-10 flex flex-col items-center justify-center gap-3 bg-surface hover:bg-primary/5 transition-colors cursor-pointer group" id="dz-sheet">
+            <span class="material-symbols-outlined text-5xl text-primary group-hover:scale-110 transition-transform duration-300">table_chart</span>
+            <p class="font-headline-md text-xl font-semibold text-text-primary text-center">Drop spreadsheets here or click to browse</p>
+            <p class="font-body-md text-sm text-text-secondary text-center">XLSX, XLS, CSV, TSV, JSON — Max 10 files</p>
+            <input type="file" id="fi-sheet" accept=".xlsx,.xls,.csv,.tsv,.json" multiple hidden>
+          </div>
+          <div class="flex flex-col gap-2 max-h-48 overflow-y-auto w-full empty:hidden" id="fl-sheet"></div>
+          <div class="flex flex-col sm:flex-row items-center gap-4 w-full">
+            <div class="flex flex-col w-full sm:w-1/3">
+              <label class="font-label-sm text-xs font-semibold text-text-secondary mb-1">Output Format</label>
+              <select id="sel-sheet" class="w-full border border-border-subtle rounded-lg bg-surface-white px-3 py-2.5 font-body-md text-text-primary focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+                <option value="csv">CSV</option>
+                <option value="tsv">TSV</option>
+                <option value="json">JSON</option>
+                <option value="xlsx">Excel (.xlsx)</option>
+                <option value="html">HTML</option>
+                <option value="markdown">Markdown</option>
+              </select>
+            </div>
+            <div class="flex-grow w-full flex flex-col justify-end h-full">
+              <span class="block h-5"></span>
+              <button class="w-full bg-primary text-on-primary font-semibold py-3 rounded-lg hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-md" id="btn-sheet" disabled>Convert All</button>
+            </div>
+          </div>
+          <p class="status text-center text-sm font-medium" id="st-sheet"></p>
+        </div>
+
+        <!-- Document Pane -->
+        <div id="pane-document" class="converter-pane hidden flex flex-col gap-6">
+          <div class="border-2 border-dashed border-outline-variant rounded-xl p-10 flex flex-col items-center justify-center gap-3 bg-surface hover:bg-primary/5 transition-colors cursor-pointer group" id="dz-doc">
+            <span class="material-symbols-outlined text-5xl text-primary group-hover:scale-110 transition-transform duration-300">article</span>
+            <p class="font-headline-md text-xl font-semibold text-text-primary text-center">Drop documents here or click to browse</p>
+            <p class="font-body-md text-sm text-text-secondary text-center">DOCX, HTML, Markdown, TXT — Max 10 files</p>
+            <input type="file" id="fi-doc" accept=".docx,.html,.htm,.md,.txt" multiple hidden>
+          </div>
+          <div class="flex flex-col gap-2 max-h-48 overflow-y-auto w-full empty:hidden" id="fl-doc"></div>
+          <div class="flex flex-col sm:flex-row items-center gap-4 w-full">
+            <div class="flex flex-col w-full sm:w-1/3">
+              <label class="font-label-sm text-xs font-semibold text-text-secondary mb-1">Output Format</label>
+              <select id="sel-doc" class="w-full border border-border-subtle rounded-lg bg-surface-white px-3 py-2.5 font-body-md text-text-primary focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+                <option value="pdf">PDF</option>
+                <option value="html">HTML</option>
+              </select>
+            </div>
+            <div class="flex-grow w-full flex flex-col justify-end h-full">
+              <span class="block h-5"></span>
+              <button class="w-full bg-primary text-on-primary font-semibold py-3 rounded-lg hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-md" id="btn-doc" disabled>Convert All</button>
+            </div>
+          </div>
+          <p class="status text-center text-sm font-medium" id="st-doc"></p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Why Choose Teta Converter Section -->
+    <section class="w-full flex flex-col gap-6 mt-6">
+      <h2 class="text-3xl font-bold tracking-tight text-text-primary text-center md:text-left">Why Choose Teta Converter?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Feature 1: No Ads -->
+        <div class="bg-surface-white border border-border-subtle rounded-xl p-6 flex flex-col gap-4 hover:border-primary transition-all duration-200">
+          <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+            <span class="material-symbols-outlined text-primary text-2xl">block</span>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h3 class="font-bold text-lg text-text-primary">No Ads</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">Enjoy a clean, distraction-free experience without annoying pop-ups, banners, or interruptions.</p>
+          </div>
+        </div>
+        <!-- Feature 2: Free Lifetime -->
+        <div class="bg-surface-white border border-border-subtle rounded-xl p-6 flex flex-col gap-4 hover:border-primary transition-all duration-200">
+          <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+            <span class="material-symbols-outlined text-primary text-2xl">volunteer_activism</span>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h3 class="font-bold text-lg text-text-primary">Free Lifetime</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">All conversion tools are completely free to use, without recurring costs or hidden subscriptions.</p>
+          </div>
+        </div>
+        <!-- Feature 3: Batch Conversion -->
+        <div class="bg-surface-white border border-border-subtle rounded-xl p-6 flex flex-col gap-4 hover:border-primary transition-all duration-200">
+          <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+            <span class="material-symbols-outlined text-primary text-2xl">layers</span>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h3 class="font-bold text-lg text-text-primary">Batch Conversion</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">Convert up to 10 files simultaneously with our high-speed local processing engine.</p>
+          </div>
+        </div>
+        <!-- Feature 4: No Registration -->
+        <div class="bg-surface-white border border-border-subtle rounded-xl p-6 flex flex-col gap-4 hover:border-primary transition-all duration-200">
+          <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+            <span class="material-symbols-outlined text-primary text-2xl">no_accounts</span>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h3 class="font-bold text-lg text-text-primary">No Registration</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">Start converting immediately without creating an account or inputting any personal data.</p>
+          </div>
+        </div>
+        <!-- Feature 5: Privacy First -->
+        <div class="bg-surface-white border border-border-subtle rounded-xl p-6 flex flex-col gap-4 hover:border-primary transition-all duration-200">
+          <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+            <span class="material-symbols-outlined text-primary text-2xl">shield_lock</span>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h3 class="font-bold text-lg text-text-primary">Privacy First</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">We strictly enforce a zero-retention policy. All your uploaded files are deleted instantly from the server.</p>
+          </div>
+        </div>
+        <!-- Feature 6: High-Speed Engine -->
+        <div class="bg-surface-white border border-border-subtle rounded-xl p-6 flex flex-col gap-4 hover:border-primary transition-all duration-200">
+          <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+            <span class="material-symbols-outlined text-primary text-2xl">bolt</span>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h3 class="font-bold text-lg text-text-primary">High-Speed Engine</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">Get blazing-fast processing cores optimize-tuned for each separate document and media format.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="w-full flex flex-col gap-6 hidden" id="blog-section">
+      <div class="flex items-center justify-between">
+        <h2 class="text-3xl font-bold tracking-tight text-text-primary">Latest from the Blog</h2>
+        <a class="text-primary font-semibold hover:underline flex items-center gap-1 text-sm" href="/blog">
+          View all <span class="material-symbols-outlined text-base">arrow_forward</span>
+        </a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="blog-grid">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-surface-white border-t border-border-subtle w-full py-6 px-4 md:px-6 mt-auto">
+    <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="flex flex-col items-center md:items-start gap-1 text-center md:text-left">
+        <span class="font-bold text-sm text-primary flex items-center gap-1">
+          <img src="/static/logo.png" alt="Teta Converter" class="h-5 w-5 rounded">
+          Teta Converter
+        </span>
+        <p class="text-xs text-text-secondary">&copy; 2026 Teta Converter. Powered by <a href="#" class="hover:underline font-semibold text-text-primary">TetaDigitals</a></p>
+      </div>
+      <nav class="flex flex-wrap justify-center gap-4 text-xs text-text-secondary">
+        <a class="hover:text-primary transition-colors" href="/">Converter</a>
+        <a class="hover:text-primary transition-colors" href="/pdf-tools">PDF Tools</a>
+        <a class="hover:text-primary transition-colors" href="/blog">Blog</a>
+        <a class="hover:text-primary transition-colors text-amber-500 font-semibold" href="https://selar.com/showlove/tetadigitals?currency=USD" target="_blank">Buy me a coffee</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Coffee Modal -->
+  <div id="coffee-modal" class="hidden fixed inset-0 bg-inverse-surface/60 backdrop-blur-sm z-50 items-center justify-center p-4">
+    <div class="bg-surface-white border border-border-subtle rounded-xl p-8 max-w-md w-full text-center flex flex-col items-center gap-4 shadow-xl">
+      <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
+        <span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">local_cafe</span>
+      </div>
+      <h3 class="font-headline-md text-headline-md text-text-primary">Enjoying Teta Converter?</h3>
+      <p class="font-body-md text-body-md text-text-secondary">Your support helps us keep building free, fast, and secure tools for everyone.</p>
+      <a id="coffee-link" href="https://selar.com/showlove/tetadigitals?currency=USD" target="_blank" class="w-full bg-primary text-on-primary font-headline-md text-center py-3 rounded-lg hover:opacity-95 active:scale-95 transition-all duration-200 shadow-md font-bold">
+        Buy me a coffee
+      </a>
+      <button id="coffee-skip" class="text-text-secondary hover:text-text-primary font-label-md transition-colors underline">
+        Skip, download now
+      </button>
+    </div>
+  </div>
+
+  <!-- Cooldown Toast -->
+  <div id="cooldown-toast" class="hidden fixed top-6 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface border border-outline-variant rounded-xl p-6 z-50 shadow-2xl max-w-sm w-full text-center flex flex-col items-center gap-2">
+    <div class="w-12 h-12 bg-error/10 rounded-full flex items-center justify-center mb-1">
+      <span class="material-symbols-outlined text-error-red text-3xl">error</span>
+    </div>
+    <p class="font-headline-lg-mobile text-lg font-bold text-error-red m-0">Free conversion limit reached</p>
+    <p class="font-body-md text-sm text-text-secondary m-0">Please come back in</p>
+    <div class="text-4xl font-extrabold text-surface-white my-1" id="cooldown-timer">30:00</div>
+    <p class="font-body-md text-sm text-text-secondary m-0">to continue converting your files for free.</p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script>
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+    const MAX_FILES = 10;
+    const fileState = { pdf: [], img: [], audio: [], vid: [], sheet: [], doc: [] };
+    let rateLimit = { remaining: 30, limit: 30, cooldown: 0 };
+    let pendingDownload = null;
+    let cooldownToastTimeout = null;
+
+    // Tab Switching
+    function switchTab(tab) {
+      document.querySelectorAll('#nav-tabs button').forEach(b => {
+        if (b.dataset.tab === tab) {
+          b.className = "px-5 py-2.5 bg-primary text-on-primary rounded-full font-label-md transition-all active:scale-95 duration-150 shadow-sm";
+        } else {
+          b.className = "px-5 py-2.5 text-text-secondary hover:bg-surface-container rounded-full font-label-md transition-all active:scale-95 duration-150";
+        }
+      });
+      document.querySelectorAll('.converter-pane').forEach(c => c.classList.add('hidden'));
+      const activePane = document.getElementById('pane-' + tab);
+      if (activePane) activePane.classList.remove('hidden');
+    }
+
+    document.querySelectorAll('#nav-tabs button').forEach(btn => {
+      btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+    });
+
+    // Rate Limit Checks
+    async function fetchRateLimit() {
+      try {
+        const r = await fetch('/api/rate-limit');
+        rateLimit = await r.json();
+        if (rateLimit.remaining <= 0 && rateLimit.cooldown > 0) showCooldownToast();
+      } catch(e) {}
+    }
+
+    function showCooldownToast() {
+      const toast = document.getElementById('cooldown-toast');
+      const timer = document.getElementById('cooldown-timer');
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+      let secs = rateLimit.cooldown;
+      if (cooldownToastTimeout) clearTimeout(cooldownToastTimeout);
+      function tick() {
+        const m = Math.floor(secs / 60), s = secs % 60;
+        timer.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+        if (secs <= 0) {
+          toast.classList.add('hidden');
+          toast.classList.remove('flex');
+          fetchRateLimit();
+          return;
+        }
+        secs--;
+        cooldownToastTimeout = setTimeout(tick, 1000);
+      }
+      tick();
+    }
+
+    fetchRateLimit();
+
+    // Fetch Recent Blog Posts
+    async function loadRecentBlogPosts() {
+      try {
+        const r = await fetch('/api/blog/recent');
+        const posts = await r.json();
+        if (posts && posts.length > 0) {
+          const grid = document.getElementById('blog-grid');
+          grid.innerHTML = posts.map(p => {
+            const date = p.created_at ? p.created_at.substring(0, 10) : '';
+            return `
+              <article onclick="window.location.href='/blog/${p.slug}'" class="bg-surface-white border border-border-subtle rounded-xl overflow-hidden flex flex-col hover:border-primary transition-all duration-200 cursor-pointer group shadow-sm">
+                <div class="h-44 w-full bg-surface-container overflow-hidden flex items-center justify-center relative border-b border-border-subtle">
+                  <span class="material-symbols-outlined text-outline-variant text-6xl group-hover:scale-105 transition-transform duration-300">article</span>
+                </div>
+                <div class="p-5 flex flex-col gap-2">
+                  <div class="flex items-center gap-2 text-xs text-text-secondary">
+                    <time>${date}</time>
+                  </div>
+                  <h3 class="font-bold text-lg text-text-primary group-hover:text-primary transition-colors line-clamp-2">${p.title}</h3>
+                  <p class="text-sm text-text-secondary line-clamp-2 leading-relaxed">${p.excerpt || ''}</p>
+                </div>
+              </article>
+            `;
+          }).join('');
+          document.getElementById('blog-section').classList.remove('hidden');
+        }
+      } catch(e) {}
+    }
+    loadRecentBlogPosts();
+
+    function getBtnId(tab) { return 'btn-' + tab; }
+    function getStId(tab) { return 'st-' + tab; }
+    function getListId(tab) { return 'fl-' + (tab === 'video' ? 'vid' : tab === 'image' ? 'img' : tab === 'spreadsheet' ? 'sheet' : tab); }
+
+    function renderFileList(tab) {
+      const el = document.getElementById(getListId(tab));
+      const files = fileState[tab];
+      const btn = document.getElementById(getBtnId(tab));
+
+      if (!el) return;
+
+      if (files.length === 0) {
+        el.innerHTML = '';
+        btn.disabled = true;
+        btn.textContent = 'Convert All';
+        return;
+      }
+
+      const allDone = files.every(f => f.status === 'done' || f.status === 'error');
+      const hasDone = files.some(f => f.status === 'done');
+
+      el.innerHTML = files.map((f, i) => {
+        const size = f.size > 1048576 ? (f.size / 1048576).toFixed(1) + ' MB' : (f.size / 1024).toFixed(0) + ' KB';
+        let icon = '<span class="material-symbols-outlined text-primary text-xl">description</span>';
+        if (tab === 'image') icon = '<span class="material-symbols-outlined text-primary text-xl">image</span>';
+        else if (tab === 'audio') icon = '<span class="material-symbols-outlined text-primary text-xl">audiotrack</span>';
+        else if (tab === 'video') icon = '<span class="material-symbols-outlined text-primary text-xl">movie</span>';
+        else if (tab === 'spreadsheet') icon = '<span class="material-symbols-outlined text-primary text-xl">table_chart</span>';
+
+        let statusIcon = '';
+        if (f.status === 'converting') statusIcon = '<span class="spinner"></span>';
+        else if (f.status === 'done') statusIcon = '<span class="text-secondary text-sm font-bold flex items-center">&#10003;</span>';
+        else if (f.status === 'error') statusIcon = '<span class="text-error-red text-sm font-bold flex items-center">&#10007;</span>';
+        else statusIcon = '<span class="text-text-secondary text-sm">&#128196;</span>';
+
+        let action = '';
+        if (f.status === 'done') {
+          action = `<button data-rid="${f.result_id}" data-name="${f.output_name}" class="dl-link text-xs font-semibold text-primary hover:underline flex items-center gap-1 cursor-pointer bg-transparent border-none p-0"><span class="material-symbols-outlined text-sm">download</span>Download</button>`;
+        } else if (f.status === 'error') {
+          action = `<span class="text-xs text-error-red" title="${f.error || ''}">Failed</span>`;
+        }
+
+        return `
+          <div class="flex items-center justify-between gap-4 p-3 bg-surface-white border border-border-subtle rounded-xl shadow-sm">
+            <div class="flex items-center gap-3 overflow-hidden">
+              ${statusIcon}
+              ${icon}
+              <span class="text-sm font-medium text-text-primary truncate" title="${f.name}">${f.name}</span>
+              <span class="text-xs text-text-secondary">${size}</span>
+            </div>
+            <div class="flex items-center gap-3">
+              ${action}
+              <button class="text-text-secondary hover:text-error-red font-bold text-lg transition-colors p-1 leading-none" onclick="removeFile('${tab}', ${i})">&times;</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Attach download link handlers
+      el.querySelectorAll('.dl-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          showCoffeeModal('/api/result/' + link.dataset.rid, link.dataset.name);
+        });
+      });
+
+      if (allDone && hasDone) {
+        btn.disabled = false;
+        btn.textContent = 'Download All';
+      } else if (files.some(f => f.status === 'converting')) {
+        btn.disabled = true;
+        btn.textContent = 'Converting...';
+      } else {
+        btn.disabled = rateLimit.remaining <= 0;
+        btn.textContent = 'Convert All';
+      }
+    }
+
+    function removeFile(tab, idx) {
+      fileState[tab].splice(idx, 1);
+      renderFileList(tab);
+    }
+
+    async function downloadAll(tab) {
+      const doneFiles = fileState[tab].filter(f => f.status === 'done');
+      if (doneFiles.length === 0) return;
+      const btn = document.getElementById(getBtnId(tab));
+      btn.disabled = true;
+      btn.textContent = 'Packaging...';
+      try {
+        const zip = new JSZip();
+        const folder = zip.folder('teta-conversions');
+        for (const f of doneFiles) {
+          const resp = await fetch('/api/result/' + f.result_id);
+          const blob = await resp.blob();
+          folder.file(f.output_name, blob);
+        }
+        const zipBlob = await zip.generateAsync({ type: 'blob' });
+        showCoffeeModal(URL.createObjectURL(zipBlob), 'teta-conversions.zip');
+      } catch(e) {
+        setStatus(getStId(tab), 'Failed to package: ' + e.message, 'error');
+      }
+      btn.disabled = false;
+      btn.textContent = 'Download All';
+    }
+
+    function setupDZ(dzId, fiId, tab) {
+      const dz = document.getElementById(dzId), fi = document.getElementById(fiId);
+      if (!dz || !fi) return;
+      dz.addEventListener('click', () => fi.click());
+      dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('bg-primary/5'); dz.classList.add('border-primary'); });
+      dz.addEventListener('dragleave', () => { dz.classList.remove('bg-primary/5'); dz.classList.remove('border-primary'); });
+      dz.addEventListener('drop', e => {
+        e.preventDefault();
+        dz.classList.remove('bg-primary/5'); dz.classList.remove('border-primary');
+        addFiles(e.dataTransfer.files, tab);
+      });
+      fi.addEventListener('change', () => { addFiles(fi.files, tab); fi.value = ''; });
+    }
+
+    function addFiles(fileList, tab) {
+      const files = fileState[tab];
+      if (files.length + fileList.length > MAX_FILES) {
+        setStatus(getStId(tab), 'Max ' + MAX_FILES + ' files. Extra skipped.', 'error');
+      }
+      for (const f of Array.from(fileList).slice(0, MAX_FILES - files.length)) {
+        files.push({ file: f, name: f.name, size: f.size, status: 'pending' });
+      }
+      renderFileList(tab);
+    }
+
+    function setStatus(id, msg, type) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (type === 'error') {
+        el.className = 'status text-center text-sm font-semibold text-error-red mt-1';
+      } else if (type === 'success') {
+        el.className = 'status text-center text-sm font-semibold text-secondary mt-1';
+      } else {
+        el.className = 'status text-center text-sm font-semibold text-text-secondary mt-1';
+      }
+      el.innerHTML = msg;
+    }
+
+    function showCoffeeModal(url, name) {
+      pendingDownload = { url, name };
+      const modal = document.getElementById('coffee-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      
+      const doDownload = () => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        if (pendingDownload && pendingDownload.url) {
+          const a = document.createElement('a');
+          a.href = pendingDownload.url;
+          a.download = pendingDownload.name;
+          a.click();
+          pendingDownload = null;
+        }
+      };
+      document.getElementById('coffee-skip').onclick = doDownload;
+      document.getElementById('coffee-link').onclick = () => { setTimeout(doDownload, 500); };
+    }
+
+    async function doBatchConvert(tab, url, getFormData) {
+      const files = fileState[tab];
+      if (files.length === 0) return;
+      const btn = document.getElementById(getBtnId(tab));
+      btn.disabled = true;
+      setStatus(getStId(tab), '<span class="spinner"></span> Converting ' + files.length + ' file(s)...');
+      files.forEach(f => f.status = 'converting');
+      renderFileList(tab);
+
+      const fd = getFormData();
+      for (const f of files) fd.append('files', f.file);
+
+      try {
+        const resp = await fetch(url, { method: 'POST', body: fd });
+        const data = await resp.json();
+        if (resp.status === 429) {
+          files.forEach(f => { f.status = 'error'; f.error = 'Rate limit reached.'; });
+          rateLimit = data.rate_limit || rateLimit;
+          showCooldownToast();
+          renderFileList(tab);
+          return;
+        }
+        if (!resp.ok) throw new Error(data.detail || 'Conversion failed');
+        for (const r of data.results) {
+          const f = files[r.index];
+          if (r.success) { f.status = 'done'; f.result_id = r.result_id; f.output_name = r.output_name; }
+          else { f.status = 'error'; f.error = r.error; }
+        }
+        const done = data.results.filter(r => r.success).length;
+        const failed = data.results.filter(r => !r.success).length;
+        setStatus(getStId(tab), done + ' converted' + (failed ? ', ' + failed + ' failed' : ''), failed ? 'error' : 'success');
+        rateLimit = data.rate_limit;
+        if (rateLimit.cooldown > 0) showCooldownToast();
+      } catch (e) {
+        files.forEach(f => { if (f.status === 'converting') { f.status = 'error'; f.error = e.message; } });
+        setStatus(getStId(tab), e.message, 'error');
+      }
+      renderFileList(tab);
+    }
+
+    // PDF Click Handler
+    setupDZ('dz-pdf', 'fi-pdf', 'pdf');
+    document.getElementById('btn-pdf').onclick = () => {
+      const files = fileState.pdf;
+      const allDone = files.length > 0 && files.every(f => f.status === 'done' || f.status === 'error');
+      if (allDone) { downloadAll('pdf'); return; }
+      doBatchConvert('pdf', '/api/convert', () => {
+        const fd = new FormData();
+        fd.append('format', document.getElementById('sel-pdf').value);
+        fd.append('converter_type', 'pdf');
+        return fd;
+      });
+    };
+
+    // Image Click Handler
+    let imgFmt = 'png';
+    setupDZ('dz-img', 'fi-img', 'img');
+    document.getElementById('img-formats').onclick = e => {
+      const c = e.target.closest('.format-chip');
+      if (!c) return;
+      document.querySelectorAll('#img-formats .format-chip').forEach(x => {
+        x.className = "format-chip px-4 py-2 rounded-full border border-border-subtle text-center font-semibold text-xs transition-all cursor-pointer bg-surface-white text-text-secondary hover:bg-surface-container";
+      });
+      c.className = "format-chip px-4 py-2 rounded-full border border-border-subtle text-center font-semibold text-xs transition-all cursor-pointer bg-primary text-on-primary shadow-sm";
+      imgFmt = c.dataset.fmt;
+    };
+    document.getElementById('btn-img').onclick = () => {
+      const files = fileState.img;
+      const allDone = files.length > 0 && files.every(f => f.status === 'done' || f.status === 'error');
+      if (allDone) { downloadAll('img'); return; }
+      doBatchConvert('img', '/api/convert', () => {
+        const fd = new FormData();
+        fd.append('format', imgFmt);
+        fd.append('converter_type', 'image');
+        fd.append('quality', document.getElementById('iq').value);
+        fd.append('width', document.getElementById('iw').value || '0');
+        fd.append('height', document.getElementById('ih').value || '0');
+        return fd;
+      });
+    };
+
+    // Audio Click Handler
+    setupDZ('dz-audio', 'fi-audio', 'audio');
+    document.getElementById('btn-audio').onclick = () => {
+      const files = fileState.audio;
+      const allDone = files.length > 0 && files.every(f => f.status === 'done' || f.status === 'error');
+      if (allDone) { downloadAll('audio'); return; }
+      doBatchConvert('audio', '/api/convert', () => {
+        const fd = new FormData();
+        fd.append('format', document.getElementById('sel-audio').value);
+        fd.append('converter_type', 'audio');
+        fd.append('bitrate', document.getElementById('sel-bitrate').value);
+        return fd;
+      });
+    };
+
+    // Video Click Handler
+    setupDZ('dz-vid', 'fi-vid', 'vid');
+    document.getElementById('btn-vid').onclick = () => {
+      const files = fileState.vid;
+      const allDone = files.length > 0 && files.every(f => f.status === 'done' || f.status === 'error');
+      if (allDone) { downloadAll('vid'); return; }
+      doBatchConvert('vid', '/api/convert', () => {
+        const fd = new FormData();
+        fd.append('format', 'gif');
+        fd.append('converter_type', 'video');
+        fd.append('fps', document.getElementById('vfps').value);
+        fd.append('width', document.getElementById('vw').value || '0');
+        fd.append('start', document.getElementById('vstart').value || '0');
+        fd.append('duration', document.getElementById('vdur').value || '0');
+        return fd;
+      });
+    };
+
+    // Spreadsheet Click Handler
+    setupDZ('dz-sheet', 'fi-sheet', 'sheet');
+    document.getElementById('btn-sheet').onclick = () => {
+      const files = fileState.sheet;
+      const allDone = files.length > 0 && files.every(f => f.status === 'done' || f.status === 'error');
+      if (allDone) { downloadAll('sheet'); return; }
+      doBatchConvert('sheet', '/api/convert', () => {
+        const fd = new FormData();
+        fd.append('format', document.getElementById('sel-sheet').value);
+        fd.append('converter_type', 'spreadsheet');
+        return fd;
+      });
+    };
+
+    // Document Click Handler
+    setupDZ('dz-doc', 'fi-doc', 'doc');
+    document.getElementById('btn-doc').onclick = () => {
+      const files = fileState.doc;
+      const allDone = files.length > 0 && files.every(f => f.status === 'done' || f.status === 'error');
+      if (allDone) { downloadAll('doc'); return; }
+      doBatchConvert('doc', '/api/convert', () => {
+        const fd = new FormData();
+        fd.append('format', document.getElementById('sel-doc').value);
+        fd.append('converter_type', 'document');
+        return fd;
+      });
+    };
+  </script>
+
+</body>
+</html>

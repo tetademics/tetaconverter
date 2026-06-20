@@ -1,0 +1,29 @@
+﻿3. Point OpenLiteSpeed at it as a reverse proxy
+In CyberPanel:
+
+Go to Websites → List Websites → Manage your domain
+Find Rewrite Rules (under vHost Conf or Rewrite Rules section) and add a proxy rule, or use vHost Conf directly to add an External App + Context
+
+Easier path — edit the vHost config directly:
+
+Go to Manage your site → vHost Conf
+Add an External App:
+
+extprocessor myflaskapp {
+  type                    proxy
+  address                 127.0.0.1:8000
+  maxConns                100
+  pcKeepAliveTimeout      60
+  retryTimeout            0
+  respBuffer              0
+}
+
+Add a Context to route traffic to it:
+
+context / {
+  type                    proxy
+  handler                 myflaskapp
+  addDefaultCharset       off
+}
+
+Save, then restart LiteSpeed (Server Status → Restart LiteSpeed, or systemctl restart lscpd via SSH)

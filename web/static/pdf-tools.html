@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>PDF Tools - Merge, Split & Compress PDFs Online | Teta Converter</title>
+  <meta name="description" content="Free online PDF tools: merge multiple PDFs into one, split PDF into pages, and compress PDF files to reduce size. No sign-up required.">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/static/logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "text-secondary": "#64748B",
+            "outline": "#777587",
+            "secondary-fixed-dim": "#4edea3",
+            "on-secondary-fixed": "#002113",
+            "on-tertiary-fixed": "#351000",
+            "surface-dim": "#d9dadb",
+            "text-primary": "#1E293B",
+            "tertiary": "#7e3000",
+            "surface-container-low": "#f3f4f5",
+            "on-secondary-fixed-variant": "#005236",
+            "tertiary-fixed": "#ffdbcc",
+            "outline-variant": "#c7c4d8",
+            "inverse-on-surface": "#f0f1f2",
+            "surface-container-lowest": "#ffffff",
+            "primary": "#3525cd",
+            "on-primary-fixed": "#0f0069",
+            "primary-fixed": "#e2dfff",
+            "surface-container": "#edeeef",
+            "secondary": "#006c49",
+            "on-tertiary-fixed-variant": "#7b2f00",
+            "on-primary": "#ffffff",
+            "surface": "#f8f9fa",
+            "on-primary-container": "#dad7ff",
+            "on-secondary-container": "#00714d",
+            "surface-bright": "#f8f9fa",
+            "secondary-fixed": "#6ffbbe",
+            "on-tertiary": "#ffffff",
+            "on-error": "#ffffff",
+            "on-surface-variant": "#464555",
+            "on-primary-fixed-variant": "#3323cc",
+            "inverse-surface": "#2e3132",
+            "on-background": "#191c1d",
+            "on-surface": "#191c1d",
+            "surface-variant": "#e1e3e4",
+            "background": "#f8f9fa",
+            "primary-container": "#4f46e5",
+            "secondary-container": "#6cf8bb",
+            "surface-white": "#FFFFFF",
+            "primary-fixed-dim": "#c3c0ff",
+            "surface-container-highest": "#e1e3e4",
+            "surface-container-high": "#e7e8e9",
+            "on-tertiary-container": "#ffd2be",
+            "on-error-container": "#93000a",
+            "surface-tint": "#4d44e3",
+            "on-secondary": "#ffffff",
+            "inverse-primary": "#c3c0ff",
+            "error-container": "#ffdad6",
+            "tertiary-container": "#a44100",
+            "tertiary-fixed-dim": "#ffb695",
+            "error-red": "#EF4444",
+            "error": "#ba1a1a",
+            "border-subtle": "#E2E8F0"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-mobile": "1rem",
+            "section-gap": "4rem",
+            "gutter": "1.5rem",
+            "container-max": "1200px",
+            "element-gap": "1rem",
+            "article-max": "720px"
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .spinner {
+      display: inline-block; width: 14px; height: 14px;
+      border: 2px solid #E2E8F0; border-top-color: #3525cd;
+      border-radius: 50%; animation: spin 0.6s linear infinite;
+      vertical-align: middle; margin-right: 6px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body class="bg-surface text-text-primary font-body-md antialiased min-h-screen flex flex-col pt-14">
+
+  <!-- TopNavBar -->
+  <header class="bg-surface-white border-b border-border-subtle fixed top-0 left-0 w-full z-40 shadow-sm">
+    <div class="flex items-center justify-between px-4 md:px-6 h-14 max-w-[1200px] mx-auto">
+      <div class="flex items-center gap-3">
+        <a class="font-bold text-primary flex items-center gap-2" href="/">
+          <img src="/static/logo.png" alt="Teta Converter" class="h-8 w-8 rounded-lg">
+          <span class="text-base md:text-lg">Teta Converter</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-5 ml-4">
+          <a class="text-text-secondary text-sm hover:text-primary transition-colors" href="/">Converter</a>
+          <a class="text-primary text-sm font-semibold border-b-2 border-primary pb-0.5" href="/pdf-tools">PDF Tools</a>
+          <a class="text-text-secondary text-sm hover:text-primary transition-colors" href="/blog">Blog</a>
+        </nav>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="https://selar.com/showlove/tetadigitals?currency=USD" target="_blank" class="hidden md:flex items-center gap-1.5 border border-border-subtle bg-surface-container text-text-primary px-3 py-1.5 rounded-lg text-xs hover:bg-surface-variant transition-colors active:scale-95">
+          <span class="material-symbols-outlined text-tertiary text-base" style="font-variation-settings: 'FILL' 1;">local_cafe</span>
+          Buy me a coffee
+        </a>
+        <button id="mobile-menu-btn" class="md:hidden text-text-primary p-1">
+          <span class="material-symbols-outlined text-2xl">menu</span>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden border-t border-border-subtle bg-surface-white px-4 py-3 flex flex-col gap-2">
+      <a class="text-text-secondary text-sm py-2 hover:text-primary transition-colors" href="/">Converter</a>
+      <a class="text-primary text-sm py-2 font-semibold" href="/pdf-tools">PDF Tools</a>
+      <a class="text-text-secondary text-sm py-2 hover:text-primary transition-colors" href="/blog">Blog</a>
+      <a href="https://selar.com/showlove/tetadigitals?currency=USD" target="_blank" class="flex items-center gap-1.5 text-tertiary text-sm py-2 font-semibold">
+        <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">local_cafe</span>
+        Buy me a coffee
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow flex flex-col items-center justify-start w-full max-w-container-max mx-auto px-margin-mobile md:px-gutter py-12 gap-12">
+    
+    <!-- Hero Section -->
+    <section class="text-center w-full max-w-3xl flex flex-col gap-3">
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-text-primary">PDF Tools</h1>
+      <p class="text-lg md:text-xl text-text-secondary">Merge, split, and compress PDF files online. Free, fast, and secure.</p>
+    </section>
+
+    <!-- PDF Tools Interface Card -->
+    <section class="w-full max-w-4xl bg-surface-white border border-border-subtle rounded-xl p-6 flex flex-col gap-6 shadow-sm">
+      
+      <!-- Tabs -->
+      <div class="flex flex-wrap gap-2 pb-4 border-b border-border-subtle" id="nav-tabs">
+        <button class="px-5 py-2.5 bg-primary text-on-primary rounded-full font-label-md transition-all active:scale-95 duration-150 shadow-sm" data-tab="merge">Merge PDFs</button>
+        <button class="px-5 py-2.5 text-text-secondary hover:bg-surface-container rounded-full font-label-md transition-all active:scale-95 duration-150" data-tab="split">Split PDF</button>
+        <button class="px-5 py-2.5 text-text-secondary hover:bg-surface-container rounded-full font-label-md transition-all active:scale-95 duration-150" data-tab="compress">Compress PDF</button>
+      </div>
+
+      <!-- Content Panes -->
+      <div id="tool-panes" class="flex flex-col gap-6">
+
+        <!-- Merge Pane -->
+        <div id="pane-merge" class="tool-pane flex flex-col gap-6">
+          <div class="border-2 border-dashed border-outline-variant rounded-xl p-10 flex flex-col items-center justify-center gap-3 bg-surface hover:bg-primary/5 transition-colors cursor-pointer group" id="dz-merge">
+            <span class="material-symbols-outlined text-5xl text-primary group-hover:scale-110 transition-transform duration-300">merge</span>
+            <p class="font-headline-md text-xl font-semibold text-text-primary text-center">Drop PDF files here to merge</p>
+            <p class="font-body-md text-sm text-text-secondary text-center">Combine multiple PDFs into one document — Max 20 files</p>
+            <input type="file" id="fi-merge" accept=".pdf" multiple hidden>
+          </div>
+          <div class="flex flex-col gap-2 max-h-48 overflow-y-auto w-full empty:hidden" id="fl-merge"></div>
+          <button class="w-full bg-primary text-on-primary font-semibold py-3 rounded-lg hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-md" id="btn-merge" disabled>Merge All</button>
+          <p class="status text-center text-sm font-medium mt-1" id="st-merge"></p>
+        </div>
+
+        <!-- Split Pane -->
+        <div id="pane-split" class="tool-pane hidden flex flex-col gap-6">
+          <div class="border-2 border-dashed border-outline-variant rounded-xl p-10 flex flex-col items-center justify-center gap-3 bg-surface hover:bg-primary/5 transition-colors cursor-pointer group" id="dz-split">
+            <span class="material-symbols-outlined text-5xl text-primary group-hover:scale-110 transition-transform duration-300">cut</span>
+            <p class="font-headline-md text-xl font-semibold text-text-primary text-center">Drop a PDF file to split</p>
+            <p class="font-body-md text-sm text-text-secondary text-center">Extract pages into separate PDF files</p>
+            <input type="file" id="fi-split" accept=".pdf" hidden>
+          </div>
+          <div id="split-info" class="hidden bg-surface-container-low rounded-xl p-4 flex flex-col gap-3">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-primary">description</span>
+              <span class="font-medium text-text-primary" id="split-filename"></span>
+              <span class="text-sm text-text-secondary" id="split-pages"></span>
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="font-label-sm text-xs font-semibold text-text-secondary">Page ranges (e.g. 1-3; 5; 7-10)</label>
+              <input type="text" id="split-ranges" placeholder="Leave empty to split in half" class="w-full border border-border-subtle rounded-lg bg-surface-white px-3 py-2.5 font-body-md text-text-primary focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+            </div>
+          </div>
+          <button class="w-full bg-primary text-on-primary font-semibold py-3 rounded-lg hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-md" id="btn-split" disabled>Split PDF</button>
+          <div id="split-results" class="hidden flex flex-col gap-2"></div>
+          <p class="status text-center text-sm font-medium mt-1" id="st-split"></p>
+        </div>
+
+        <!-- Compress Pane -->
+        <div id="pane-compress" class="tool-pane hidden flex flex-col gap-6">
+          <div class="border-2 border-dashed border-outline-variant rounded-xl p-10 flex flex-col items-center justify-center gap-3 bg-surface hover:bg-primary/5 transition-colors cursor-pointer group" id="dz-compress">
+            <span class="material-symbols-outlined text-5xl text-primary group-hover:scale-110 transition-transform duration-300">compress</span>
+            <p class="font-headline-md text-xl font-semibold text-text-primary text-center">Drop a PDF to compress</p>
+            <p class="font-body-md text-sm text-text-secondary text-center">Reduce PDF file size while maintaining quality</p>
+            <input type="file" id="fi-compress" accept=".pdf" hidden>
+          </div>
+          <div class="flex flex-col gap-2 max-h-48 overflow-y-auto w-full empty:hidden" id="fl-compress"></div>
+          <div class="flex flex-col sm:flex-row items-center gap-4 w-full">
+            <div class="flex flex-col w-full sm:w-1/3">
+              <label class="font-label-sm text-xs font-semibold text-text-secondary mb-1">Compression Level</label>
+              <select id="sel-compress" class="w-full border border-border-subtle rounded-lg bg-surface-white px-3 py-2.5 font-body-md text-text-primary focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+                <option value="light">Light (fastest)</option>
+                <option value="medium" selected>Medium (recommended)</option>
+                <option value="aggressive">Aggressive (smallest size)</option>
+              </select>
+            </div>
+            <div class="flex-grow w-full flex flex-col justify-end h-full">
+              <span class="block h-5"></span>
+              <button class="w-full bg-primary text-on-primary font-semibold py-3 rounded-lg hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-md" id="btn-compress" disabled>Compress PDF</button>
+            </div>
+          </div>
+          <p class="status text-center text-sm font-medium mt-1" id="st-compress"></p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="w-full flex flex-col gap-6 mt-6">
+      <h2 class="text-3xl font-bold tracking-tight text-text-primary text-center md:text-left">Why Use Our PDF Tools?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-surface-white border border-border-subtle rounded-xl p-6 flex flex-col gap-4 hover:border-primary transition-all duration-200">
+          <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+            <span class="material-symbols-outlined text-primary text-2xl">bolt</span>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h3 class="font-bold text-lg text-text-primary">Lightning Fast</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">All processing happens locally on our servers — no waiting for uploads to complete.</p>
+          </div>
+        </div>
+        <div class="bg-surface-white border border-border-subtle rounded-xl p-6 flex flex-col gap-4 hover:border-primary transition-all duration-200">
+          <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+            <span class="material-symbols-outlined text-primary text-2xl">shield_lock</span>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h3 class="font-bold text-lg text-text-primary">100% Private</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">Your files are automatically deleted after processing. We never store or share your data.</p>
+          </div>
+        </div>
+        <div class="bg-surface-white border border-border-subtle rounded-xl p-6 flex flex-col gap-4 hover:border-primary transition-all duration-200">
+          <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+            <span class="material-symbols-outlined text-primary text-2xl">volunteer_activism</span>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h3 class="font-bold text-lg text-text-primary">Free Forever</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">No hidden fees, no watermarks, no registration required. Use as much as you need.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-surface-white border-t border-border-subtle w-full py-6 px-4 md:px-6 mt-auto">
+    <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="flex flex-col items-center md:items-start gap-1 text-center md:text-left">
+        <span class="font-bold text-sm text-primary flex items-center gap-1">
+          <img src="/static/logo.png" alt="Teta Converter" class="h-5 w-5 rounded">
+          Teta Converter
+        </span>
+        <p class="text-xs text-text-secondary">&copy; 2026 Teta Converter. Powered by <a href="#" class="hover:underline font-semibold text-text-primary">TetaDigitals</a></p>
+      </div>
+      <nav class="flex flex-wrap justify-center gap-4 text-xs text-text-secondary">
+        <a class="hover:text-primary transition-colors" href="/">Converter</a>
+        <a class="hover:text-primary transition-colors" href="/pdf-tools">PDF Tools</a>
+        <a class="hover:text-primary transition-colors" href="/blog">Blog</a>
+        <a class="hover:text-primary transition-colors text-amber-500 font-semibold" href="https://selar.com/showlove/tetadigitals?currency=USD" target="_blank">Buy me a coffee</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Coffee Modal -->
+  <div id="coffee-modal" class="hidden fixed inset-0 bg-inverse-surface/60 backdrop-blur-sm z-50 items-center justify-center p-4">
+    <div class="bg-surface-white border border-border-subtle rounded-xl p-8 max-w-md w-full text-center flex flex-col items-center gap-4 shadow-xl">
+      <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
+        <span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">local_cafe</span>
+      </div>
+      <h3 class="font-headline-md text-headline-md text-text-primary">Enjoying Teta Converter?</h3>
+      <p class="font-body-md text-body-md text-text-secondary">Your support helps us keep building free, fast, and secure tools for everyone.</p>
+      <a id="coffee-link" href="https://selar.com/showlove/tetadigitals?currency=USD" target="_blank" class="w-full bg-primary text-on-primary font-headline-md text-center py-3 rounded-lg hover:opacity-95 active:scale-95 transition-all duration-200 shadow-md font-bold">
+        Buy me a coffee
+      </a>
+      <button id="coffee-skip" class="text-text-secondary hover:text-text-primary font-label-md transition-colors underline">
+        Skip, download now
+      </button>
+    </div>
+  </div>
+
+  <!-- Cooldown Toast -->
+  <div id="cooldown-toast" class="hidden fixed top-6 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface border border-outline-variant rounded-xl p-6 z-50 shadow-2xl max-w-sm w-full text-center flex flex-col items-center gap-2">
+    <div class="w-12 h-12 bg-error/10 rounded-full flex items-center justify-center mb-1">
+      <span class="material-symbols-outlined text-error-red text-3xl">error</span>
+    </div>
+    <p class="font-headline-lg-mobile text-lg font-bold text-error-red m-0">Free conversion limit reached</p>
+    <p class="font-body-md text-sm text-text-secondary m-0">Please come back in</p>
+    <div class="text-4xl font-extrabold text-surface-white my-1" id="cooldown-timer">30:00</div>
+    <p class="font-body-md text-sm text-text-secondary m-0">to continue converting your files for free.</p>
+  </div>
+
+  <script>
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+
+    let rateLimit = { remaining: 30, limit: 30, cooldown: 0 };
+    let pendingDownload = null;
+    let cooldownToastTimeout = null;
+    let splitFile = null;
+
+    // Tab Switching
+    function switchTab(tab) {
+      document.querySelectorAll('#nav-tabs button').forEach(b => {
+        if (b.dataset.tab === tab) {
+          b.className = "px-5 py-2.5 bg-primary text-on-primary rounded-full font-label-md transition-all active:scale-95 duration-150 shadow-sm";
+        } else {
+          b.className = "px-5 py-2.5 text-text-secondary hover:bg-surface-container rounded-full font-label-md transition-all active:scale-95 duration-150";
+        }
+      });
+      document.querySelectorAll('.tool-pane').forEach(c => c.classList.add('hidden'));
+      const activePane = document.getElementById('pane-' + tab);
+      if (activePane) activePane.classList.remove('hidden');
+    }
+
+    document.querySelectorAll('#nav-tabs button').forEach(btn => {
+      btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+    });
+
+    // Rate Limit
+    async function fetchRateLimit() {
+      try {
+        const r = await fetch('/api/rate-limit');
+        rateLimit = await r.json();
+        if (rateLimit.remaining <= 0 && rateLimit.cooldown > 0) showCooldownToast();
+      } catch(e) {}
+    }
+
+    function showCooldownToast() {
+      const toast = document.getElementById('cooldown-toast');
+      const timer = document.getElementById('cooldown-timer');
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+      let secs = rateLimit.cooldown;
+      if (cooldownToastTimeout) clearTimeout(cooldownToastTimeout);
+      function tick() {
+        const m = Math.floor(secs / 60), s = secs % 60;
+        timer.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+        if (secs <= 0) {
+          toast.classList.add('hidden');
+          toast.classList.remove('flex');
+          fetchRateLimit();
+          return;
+        }
+        secs--;
+        cooldownToastTimeout = setTimeout(tick, 1000);
+      }
+      tick();
+    }
+
+    fetchRateLimit();
+
+    // Coffee Modal
+    function showCoffeeModal(url, name) {
+      pendingDownload = { url, name };
+      const modal = document.getElementById('coffee-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      
+      const doDownload = () => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        if (pendingDownload && pendingDownload.url) {
+          const a = document.createElement('a');
+          a.href = pendingDownload.url;
+          a.download = pendingDownload.name;
+          a.click();
+          pendingDownload = null;
+        }
+      };
+      document.getElementById('coffee-skip').onclick = doDownload;
+      document.getElementById('coffee-link').onclick = () => { setTimeout(doDownload, 500); };
+    }
+
+    function setStatus(id, msg, type) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (type === 'error') {
+        el.className = 'status text-center text-sm font-semibold text-error-red mt-1';
+      } else if (type === 'success') {
+        el.className = 'status text-center text-sm font-semibold text-secondary mt-1';
+      } else {
+        el.className = 'status text-center text-sm font-semibold text-text-secondary mt-1';
+      }
+      el.innerHTML = msg;
+    }
+
+    // Merge
+    const mergeFiles = [];
+    setupDZ('dz-merge', 'fi-merge', (files) => {
+      for (const f of files) {
+        if (mergeFiles.length >= 20) break;
+        mergeFiles.push(f);
+      }
+      renderMergeList();
+    });
+
+    function renderMergeList() {
+      const el = document.getElementById('fl-merge');
+      const btn = document.getElementById('btn-merge');
+      if (mergeFiles.length === 0) {
+        el.innerHTML = '';
+        btn.disabled = true;
+        return;
+      }
+      el.innerHTML = mergeFiles.map((f, i) => {
+        const size = f.size > 1048576 ? (f.size / 1048576).toFixed(1) + ' MB' : (f.size / 1024).toFixed(0) + ' KB';
+        return `
+          <div class="flex items-center justify-between gap-4 p-3 bg-surface-white border border-border-subtle rounded-xl shadow-sm">
+            <div class="flex items-center gap-3 overflow-hidden">
+              <span class="material-symbols-outlined text-primary text-xl">description</span>
+              <span class="text-sm font-medium text-text-primary truncate" title="${f.name}">${f.name}</span>
+              <span class="text-xs text-text-secondary">${size}</span>
+            </div>
+            <button class="text-text-secondary hover:text-error-red font-bold text-lg transition-colors p-1 leading-none" onclick="removeMergeFile(${i})">&times;</button>
+          </div>
+        `;
+      }).join('');
+      btn.disabled = mergeFiles.length < 2;
+    }
+
+    function removeMergeFile(idx) {
+      mergeFiles.splice(idx, 1);
+      renderMergeList();
+    }
+
+    document.getElementById('btn-merge').onclick = async () => {
+      if (mergeFiles.length < 2) return;
+      const btn = document.getElementById('btn-merge');
+      btn.disabled = true;
+      setStatus('st-merge', '<span class="spinner"></span> Merging ' + mergeFiles.length + ' PDFs...');
+
+      const fd = new FormData();
+      for (const f of mergeFiles) fd.append('files', f);
+
+      try {
+        const resp = await fetch('/api/pdf/merge', { method: 'POST', body: fd });
+        const data = await resp.json();
+        if (resp.status === 429) {
+          rateLimit = data.rate_limit || rateLimit;
+          showCooldownToast();
+          setStatus('st-merge', 'Rate limit reached.', 'error');
+          return;
+        }
+        if (!resp.ok) throw new Error(data.detail || 'Merge failed');
+        setStatus('st-merge', 'Merged! Size: ' + data.size_kb + ' KB', 'success');
+        rateLimit = data.rate_limit;
+        if (rateLimit.cooldown > 0) showCooldownToast();
+        showCoffeeModal('/api/result/' + data.result_id, data.output_name);
+      } catch (e) {
+        setStatus('st-merge', e.message, 'error');
+      }
+      btn.disabled = false;
+    };
+
+    // Split
+    setupDZ('dz-split', 'fi-split', (files) => {
+      if (files.length > 0) {
+        splitFile = files[0];
+        document.getElementById('split-info').classList.remove('hidden');
+        document.getElementById('split-filename').textContent = splitFile.name;
+        document.getElementById('split-pages').textContent = 'Loading page count...';
+        document.getElementById('btn-split').disabled = false;
+        document.getElementById('split-results').classList.add('hidden');
+        document.getElementById('st-split').textContent = '';
+
+        const fd = new FormData();
+        fd.append('file', splitFile);
+        fd.append('ranges', '1-1');
+        fetch('/api/pdf/split', { method: 'POST', body: fd })
+          .then(r => r.json())
+          .then(d => {
+            if (d.success && d.results.length > 0) {
+              document.getElementById('split-pages').textContent = 'Ready to split';
+            }
+          })
+          .catch(() => {
+            document.getElementById('split-pages').textContent = 'Error loading PDF';
+          });
+      }
+    });
+
+    document.getElementById('btn-split').onclick = async () => {
+      if (!splitFile) return;
+      const btn = document.getElementById('btn-split');
+      btn.disabled = true;
+      setStatus('st-split', '<span class="spinner"></span> Splitting PDF...');
+
+      const fd = new FormData();
+      fd.append('file', splitFile);
+      fd.append('ranges', document.getElementById('split-ranges').value);
+
+      try {
+        const resp = await fetch('/api/pdf/split', { method: 'POST', body: fd });
+        const data = await resp.json();
+        if (resp.status === 429) {
+          rateLimit = data.rate_limit || rateLimit;
+          showCooldownToast();
+          setStatus('st-split', 'Rate limit reached.', 'error');
+          return;
+        }
+        if (!resp.ok) throw new Error(data.detail || 'Split failed');
+
+        const resultsDiv = document.getElementById('split-results');
+        resultsDiv.classList.remove('hidden');
+        resultsDiv.innerHTML = data.results.map(r => `
+          <div class="flex items-center justify-between gap-4 p-3 bg-surface-white border border-border-subtle rounded-xl shadow-sm">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-primary text-xl">description</span>
+              <span class="text-sm font-medium text-text-primary">${r.output_name}</span>
+              <span class="text-xs text-text-secondary">${r.size_kb} KB</span>
+            </div>
+            <button onclick="showCoffeeModal('/api/result/${r.result_id}', '${r.output_name}')" class="text-primary font-semibold text-xs hover:underline flex items-center gap-1 cursor-pointer bg-transparent border-none">
+              <span class="material-symbols-outlined text-sm">download</span>Download
+            </button>
+          </div>
+        `).join('');
+
+        setStatus('st-split', 'Split into ' + data.results.length + ' files', 'success');
+        rateLimit = data.rate_limit;
+        if (rateLimit.cooldown > 0) showCooldownToast();
+      } catch (e) {
+        setStatus('st-split', e.message, 'error');
+      }
+      btn.disabled = false;
+    };
+
+    // Compress
+    const compressFiles = [];
+    setupDZ('dz-compress', 'fi-compress', (files) => {
+      for (const f of files) {
+        if (compressFiles.length >= 10) break;
+        compressFiles.push(f);
+      }
+      renderCompressList();
+    });
+
+    function renderCompressList() {
+      const el = document.getElementById('fl-compress');
+      const btn = document.getElementById('btn-compress');
+      if (compressFiles.length === 0) {
+        el.innerHTML = '';
+        btn.disabled = true;
+        return;
+      }
+      el.innerHTML = compressFiles.map((f, i) => {
+        const size = f.size > 1048576 ? (f.size / 1048576).toFixed(1) + ' MB' : (f.size / 1024).toFixed(0) + ' KB';
+        return `
+          <div class="flex items-center justify-between gap-4 p-3 bg-surface-white border border-border-subtle rounded-xl shadow-sm">
+            <div class="flex items-center gap-3 overflow-hidden">
+              <span class="material-symbols-outlined text-primary text-xl">description</span>
+              <span class="text-sm font-medium text-text-primary truncate" title="${f.name}">${f.name}</span>
+              <span class="text-xs text-text-secondary">${size}</span>
+            </div>
+            <button class="text-text-secondary hover:text-error-red font-bold text-lg transition-colors p-1 leading-none" onclick="removeCompressFile(${i})">&times;</button>
+          </div>
+        `;
+      }).join('');
+      btn.disabled = compressFiles.length === 0;
+    }
+
+    function removeCompressFile(idx) {
+      compressFiles.splice(idx, 1);
+      renderCompressList();
+    }
+
+    document.getElementById('btn-compress').onclick = async () => {
+      if (compressFiles.length === 0) return;
+      const btn = document.getElementById('btn-compress');
+      btn.disabled = true;
+      setStatus('st-compress', '<span class="spinner"></span> Compressing ' + compressFiles.length + ' PDF(s)...');
+
+      const results = [];
+      for (const f of compressFiles) {
+        const fd = new FormData();
+        fd.append('file', f);
+        fd.append('quality', document.getElementById('sel-compress').value);
+
+        try {
+          const resp = await fetch('/api/pdf/compress', { method: 'POST', body: fd });
+          const data = await resp.json();
+          if (resp.status === 429) {
+            rateLimit = data.rate_limit || rateLimit;
+            showCooldownToast();
+            setStatus('st-compress', 'Rate limit reached.', 'error');
+            btn.disabled = false;
+            return;
+          }
+          if (!resp.ok) throw new Error(data.detail || 'Compression failed');
+          results.push(data);
+          rateLimit = data.rate_limit;
+        } catch (e) {
+          results.push({ success: false, error: e.message, output_name: f.name });
+        }
+      }
+
+      const success = results.filter(r => r.success);
+      const failed = results.filter(r => !r.success);
+
+      if (success.length > 0) {
+        const totalSaved = success.reduce((sum, r) => sum + (r.original_size_kb - r.size_kb), 0).toFixed(1);
+        setStatus('st-compress', success.length + ' compressed! Saved ' + totalSaved + ' KB total', 'success');
+        for (const r of success) {
+          showCoffeeModal('/api/result/' + r.result_id, r.output_name);
+          break;
+        }
+      }
+      if (failed.length > 0) {
+        setStatus('st-compress', failed.length + ' failed: ' + failed[0].error, 'error');
+      }
+
+      if (rateLimit.cooldown > 0) showCooldownToast();
+      btn.disabled = false;
+    };
+
+    // Drag and Drop Setup
+    function setupDZ(dzId, fiId, onFiles) {
+      const dz = document.getElementById(dzId), fi = document.getElementById(fiId);
+      if (!dz || !fi) return;
+      dz.addEventListener('click', () => fi.click());
+      dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('bg-primary/5'); dz.classList.add('border-primary'); });
+      dz.addEventListener('dragleave', () => { dz.classList.remove('bg-primary/5'); dz.classList.remove('border-primary'); });
+      dz.addEventListener('drop', e => {
+        e.preventDefault();
+        dz.classList.remove('bg-primary/5'); dz.classList.remove('border-primary');
+        onFiles(Array.from(e.dataTransfer.files));
+      });
+      fi.addEventListener('change', () => { onFiles(Array.from(fi.files)); fi.value = ''; });
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Teta Converter - Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "text-secondary": "#64748B",
+                      "outline": "#777587",
+                      "secondary-fixed-dim": "#4edea3",
+                      "on-secondary-fixed": "#002113",
+                      "on-tertiary-fixed": "#351000",
+                      "surface-dim": "#d9dadb",
+                      "text-primary": "#1E293B",
+                      "tertiary": "#7e3000",
+                      "surface-container-low": "#f3f4f5",
+                      "on-secondary-fixed-variant": "#005236",
+                      "tertiary-fixed": "#ffdbcc",
+                      "outline-variant": "#c7c4d8",
+                      "inverse-on-surface": "#f0f1f2",
+                      "surface-container-lowest": "#ffffff",
+                      "primary": "#3525cd",
+                      "on-primary-fixed": "#0f0069",
+                      "primary-fixed": "#e2dfff",
+                      "surface-container": "#edeeef",
+                      "secondary": "#006c49",
+                      "on-tertiary-fixed-variant": "#7b2f00",
+                      "on-primary": "#ffffff",
+                      "surface": "#f8f9fa",
+                      "on-primary-container": "#dad7ff",
+                      "on-secondary-container": "#00714d",
+                      "surface-bright": "#f8f9fa",
+                      "secondary-fixed": "#6ffbbe",
+                      "on-tertiary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "on-surface-variant": "#464555",
+                      "on-primary-fixed-variant": "#3323cc",
+                      "inverse-surface": "#2e3132",
+                      "on-background": "#191c1d",
+                      "on-surface": "#191c1d",
+                      "surface-variant": "#e1e3e4",
+                      "background": "#f8f9fa",
+                      "primary-container": "#4f46e5",
+                      "secondary-container": "#6cf8bb",
+                      "surface-white": "#FFFFFF",
+                      "primary-fixed-dim": "#c3c0ff",
+                      "surface-container-highest": "#e1e3e4",
+                      "surface-container-high": "#e7e8e9",
+                      "on-tertiary-container": "#ffd2be",
+                      "on-error-container": "#93000a",
+                      "surface-tint": "#4d44e3",
+                      "on-secondary": "#ffffff",
+                      "inverse-primary": "#c3c0ff",
+                      "error-container": "#ffdad6",
+                      "tertiary-container": "#a44100",
+                      "tertiary-fixed-dim": "#ffb695",
+                      "error-red": "#EF4444",
+                      "error": "#ba1a1a",
+                      "border-subtle": "#E2E8F0"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "1rem",
+                      "section-gap": "4rem",
+                      "gutter": "1.5rem",
+                      "container-max": "1200px",
+                      "element-gap": "1rem",
+                      "article-max": "720px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-surface text-text-primary font-body-md text-body-md antialiased min-h-screen flex flex-col pt-16">
+<!-- TopNavBar -->
+<header class="bg-surface-white border-b border-border-subtle flat no shadows fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter h-16 w-full">
+<div class="flex items-center gap-8 max-w-container-max mx-auto w-full justify-between">
+<div class="flex items-center gap-8">
+<a class="font-headline-md text-headline-md font-bold text-primary" href="#">Teta Converter</a>
+<nav class="hidden md:flex gap-6">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 transition-colors hover:text-primary active:scale-95 duration-200" href="#">PDF</a>
+<a class="text-text-secondary font-label-md transition-colors hover:text-primary active:scale-95 duration-200" href="#">Image</a>
+<a class="text-text-secondary font-label-md transition-colors hover:text-primary active:scale-95 duration-200" href="#">Audio</a>
+<a class="text-text-secondary font-label-md transition-colors hover:text-primary active:scale-95 duration-200" href="#">Blog</a>
+</nav>
+</div>
+<button class="bg-surface-container border border-border-subtle text-text-primary px-4 py-2 rounded font-label-md hover:bg-surface-variant transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_cafe</span>
+                Buy me a coffee
+            </button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow flex flex-col items-center justify-start w-full max-w-container-max mx-auto px-margin-mobile md:px-gutter py-section-gap gap-section-gap">
+<!-- Hero Section -->
+<section class="text-center w-full max-w-3xl flex flex-col gap-4">
+<h1 class="font-display-lg text-display-lg text-text-primary">Teta Converter</h1>
+<p class="font-body-lg text-body-lg text-text-secondary">Fast, free, and secure file conversion.</p>
+</section>
+<!-- Converter Interface -->
+<section class="w-full max-w-4xl bg-surface-white border border-border-subtle rounded-lg p-element-gap flex flex-col gap-element-gap">
+<!-- Tabs -->
+<div class="flex flex-wrap gap-2 pb-4 border-b border-border-subtle">
+<button class="px-4 py-2 bg-primary text-on-primary rounded-full font-label-md">PDF</button>
+<button class="px-4 py-2 text-text-secondary hover:bg-surface-container rounded-full font-label-md transition-colors">Image</button>
+<button class="px-4 py-2 text-text-secondary hover:bg-surface-container rounded-full font-label-md transition-colors">Audio</button>
+<button class="px-4 py-2 text-text-secondary hover:bg-surface-container rounded-full font-label-md transition-colors">Video</button>
+<button class="px-4 py-2 text-text-secondary hover:bg-surface-container rounded-full font-label-md transition-colors">Spreadsheet</button>
+<button class="px-4 py-2 text-text-secondary hover:bg-surface-container rounded-full font-label-md transition-colors">Document</button>
+</div>
+<!-- Dropzone -->
+<div class="border-2 border-dashed border-[#CBD5E1] rounded-lg p-12 flex flex-col items-center justify-center gap-4 bg-surface hover:bg-primary/5 transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-display-lg text-primary group-hover:scale-110 transition-transform duration-300">upload_file</span>
+<p class="font-headline-md text-headline-md text-text-primary text-center">Drop a PDF here or click</p>
+<p class="font-body-md text-body-md text-text-secondary text-center">Max file size: 50MB</p>
+</div>
+<!-- Controls -->
+<div class="flex flex-col sm:flex-row items-center gap-4 w-full">
+<div class="flex flex-col w-full sm:w-1/3">
+<label class="font-label-sm text-label-sm text-text-secondary mb-1">Output Format</label>
+<select class="w-full border border-border-subtle rounded bg-surface-white px-3 py-2 font-body-md text-text-primary focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+<option value="markdown">Markdown</option>
+<option value="json">JSON</option>
+<option value="word">Word</option>
+</select>
+</div>
+<button class="w-full sm:w-2/3 bg-primary text-on-primary font-headline-md text-headline-md py-3 rounded-lg opacity-50 cursor-not-allowed mt-auto" disabled="">
+                    Convert PDF
+                </button>
+</div>
+</section>
+<!-- Blog Section -->
+<section class="w-full flex flex-col gap-element-gap">
+<h2 class="font-headline-lg text-headline-lg text-text-primary">Why Choose Teta Converter?</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-element-gap">
+<!-- Feature 1: No Ads -->
+<div class="bg-surface-white border border-border-subtle rounded-lg p-6 flex flex-col gap-4 hover:border-primary transition-colors">
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">block</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="font-headline-md text-headline-md text-text-primary">No Ads</h3>
+<p class="font-body-md text-body-md text-text-secondary">Enjoy a clean, distraction-free experience without annoying pop-ups or banners.</p>
+</div>
+</div>
+<!-- Feature 2: Free Lifetime -->
+<div class="bg-surface-white border border-border-subtle rounded-lg p-6 flex flex-col gap-4 hover:border-primary transition-colors">
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">volunteer_activism</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="font-headline-md text-headline-md text-text-primary">Free Lifetime</h3>
+<p class="font-body-md text-body-md text-text-secondary">All conversion tools are free to use forever, no hidden costs or subscriptions.</p>
+</div>
+</div>
+<!-- Feature 3: Batch Conversion -->
+<div class="bg-surface-white border border-border-subtle rounded-lg p-6 flex flex-col gap-4 hover:border-primary transition-colors">
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">layers</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="font-headline-md text-headline-md text-text-primary">Batch Conversion</h3>
+<p class="font-body-md text-body-md text-text-secondary">Save time by converting multiple files simultaneously with our high-speed engine.</p>
+</div>
+</div>
+<!-- Feature 4: No Credit Card -->
+<div class="bg-surface-white border border-border-subtle rounded-lg p-6 flex flex-col gap-4 hover:border-primary transition-colors">
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">no_accounts</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="font-headline-md text-headline-md text-text-primary">No Credit Card</h3>
+<p class="font-body-md text-body-md text-text-secondary">Start converting immediately. No registration or credit card details required.</p>
+</div>
+</div>
+<div class="bg-surface-white border border-border-subtle rounded-lg p-6 flex flex-col gap-4 hover:border-primary transition-colors">
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">shield_lock</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="font-headline-md text-headline-md text-text-primary">Privacy First</h3>
+<p class="font-body-md text-body-md text-text-secondary">Your files are never stored. We delete all documents immediately after conversion to ensure your private data stays private.</p>
+</div>
+</div><div class="bg-surface-white border border-border-subtle rounded-lg p-6 flex flex-col gap-4 hover:border-primary transition-colors">
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">bolt</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="font-headline-md text-headline-md text-text-primary">High-Speed Engine</h3>
+<p class="font-body-md text-body-md text-text-secondary">Experience lightning-fast conversions with our optimized processing core, designed for efficiency.</p>
+</div>
+</div></div>
+</section><section class="w-full flex flex-col gap-element-gap">
+<h2 class="font-headline-lg text-headline-lg text-text-primary">Latest from the Blog</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-element-gap">
+<!-- Blog Card 1 -->
+<article class="bg-surface-white border border-border-subtle rounded-xl overflow-hidden flex flex-col hover:border-primary transition-colors cursor-pointer group">
+<div class="h-48 w-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A clean, flat-ui inspired abstract illustration representing a PDF document transforming into markdown code blocks. The composition uses a minimalist aesthetic with the brand's primary indigo color against a soft, bright white and pale gray background. Crisp edges, subtle 1px outlines, and utilitarian precision convey a sense of fast, technical data conversion." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXJNVK1NuqwOkywBMXjsoDjnkiQ4xEw10ot6gZHhUw413l-he8T5ZBhAKLWGrmy4l64pU3Ds79YDOH2MaF_qms2GydClV9ENnrZaLkxySrsmpZMS1pLBnhqx8DVo-YooqjmmyBY8_ZLIGf2d2Fqpiz3JdX-GyaYPFLrdL2UvM7qXutr2l4llaJh28tGaVnjkNFiIA7Bmry3aS1VZnzqf7WYe0FB6c6O8jz8kd_t-KKaYqen3VkE4P5hQzHVorEAwDdLTR579yLYkJH">
+</div>
+<div class="p-4 flex flex-col gap-2">
+<h3 class="font-headline-md text-headline-md text-text-primary group-hover:text-primary transition-colors">How to convert PDF to Markdown efficiently</h3>
+<p class="font-body-md text-body-md text-text-secondary line-clamp-2">Learn the best practices and tools for extracting text and structure from PDF files into clean Markdown format.</p>
+</div>
+</article>
+<!-- Blog Card 2 -->
+<article class="bg-surface-white border border-border-subtle rounded-xl overflow-hidden flex flex-col hover:border-primary transition-colors cursor-pointer group">
+<div class="h-48 w-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A modern, high-contrast flat-ui illustration depicting a large digital file folder being compressed by a sleek, mechanical vice grip. The color palette features monochromatic grays with vibrant indigo accents on a pristine white background. The image reflects a professional, corporate modern technical tool aesthetic devoid of heavy shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKJpNM_BU4OILtY6SInM1MB_uXdiFIxugbJVKXVghiO4rYTlgqmIVu-unngYED-gm13elQTEA17DflLrvdBWqRzfE1j0TnkgpvxCTexZdhFSrecfIhbMUYwrLK0jXcf5oOY5H_HqcJ54sCz6AovBuoTbyE9J_l0cERb-bIJ--n-Y92KJFXs9uwvbFnYYbqD-VEq8hcqg6RiRle4-z2VYLAlph1Us4RgXNWsBQ-KI7KKLr3RJmROXfeqQpkrVdxtAwVxg8egsBguCBb">
+</div>
+<div class="p-4 flex flex-col gap-2">
+<h3 class="font-headline-md text-headline-md text-text-primary group-hover:text-primary transition-colors">Understanding File Compression</h3>
+<p class="font-body-md text-body-md text-text-secondary line-clamp-2">A deep dive into lossless vs. lossy compression algorithms and how they affect your file sizes and quality.</p>
+</div>
+</article>
+<!-- Blog Card 3 -->
+<article class="bg-surface-white border border-border-subtle rounded-xl overflow-hidden flex flex-col hover:border-primary transition-colors cursor-pointer group">
+<div class="h-48 w-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An abstract, minimalist digital rendering of sound waves visualized as crisp, flat geometric lines stretching across a bright white canvas. The sound waves are tinted in the brand's primary indigo color, conveying a sense of clear, high-fidelity audio data. The overall style is clean, technical, and utilizes a flat-plus utilitarian precision approach." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATqCMeEqzhZYgKdjIqgWHlAT5Zg5rMgyMDPJhILPjlp_aO8kgtiCe2sBdTDSTiGrRYnFU5fyAcqRIRTx2m6o21WSbUZ883XlV4UJg3R2HlskTkcRTKHYSDOGBbuBI4_VKBCB83fnurK0Cv12WJ9PL_D5bRbt7ZLKN71SATNrnsAzbaukR1q3poYxYlJfMPAu9jcjkFVD4N1X1vS5BVHp2ruxMb8P_eF3oxWMUIr-T34341uRl9yk1JN0hwlKw0-a5ZOYa5kjcS7u4A">
+</div>
+<div class="p-4 flex flex-col gap-2">
+<h3 class="font-headline-md text-headline-md text-text-primary group-hover:text-primary transition-colors">Top 5 Audio Formats for 2024</h3>
+<p class="font-body-md text-body-md text-text-secondary line-clamp-2">Comparing FLAC, MP3, WAV, AAC, and OGG to determine the best choice for web streaming and archival storage.</p>
+</div>
+</article>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface border-t border-border-subtle flat no shadows w-full py-12 px-gutter mt-section-gap flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto mt-auto">
+<div class="flex flex-col items-center md:items-start gap-4 w-full">
+<span class="font-headline-md text-headline-md font-bold text-text-primary">Teta Converter</span>
+<p class="font-body-md text-body-md text-text-secondary">2024 Teta Converter. Powered by TetaDigitals</p>
+</div>
+<nav class="flex flex-wrap justify-center md:justify-end gap-4 md:gap-8 mt-8 md:mt-0 w-full">
+<a class="text-text-secondary font-label-sm hover:text-primary transition-opacity duration-200 hover:opacity-80" href="#">PDF Converter</a>
+<a class="text-text-secondary font-label-sm hover:text-primary transition-opacity duration-200 hover:opacity-80" href="#">Image Converter</a>
+<a class="text-text-secondary font-label-sm hover:text-primary transition-opacity duration-200 hover:opacity-80" href="#">Audio Converter</a>
+<a class="text-text-secondary font-label-sm hover:text-primary transition-opacity duration-200 hover:opacity-80" href="#">Privacy Policy</a>
+<a class="text-text-secondary font-label-sm hover:text-primary transition-opacity duration-200 hover:opacity-80" href="#">Terms of Service</a>
+</nav>
+</footer>
+
+
+</body></html>

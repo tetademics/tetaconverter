@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ 'Edit' if post else 'New' }} Post — Blog Admin</title>
+  <link rel="icon" type="image/png" href="/static/logo.png"/>
+  <link rel="stylesheet" href="/static/blog.css">
+  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+  <script>
+    if (typeof tinymce !== 'undefined') {
+      tinymce.init({
+        selector: '#content',
+        height: 500,
+        menubar: false,
+        plugins: 'lists link image table code codesample fullscreen',
+        toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | bullist numlist | link image table codesample | code fullscreen',
+        content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 15px; color: #e1e4e8; background: #0d1117; padding: 20px; } a { color: #58a6ff; }',
+        skin: 'dark',
+        branding: false,
+        promotion: false,
+      });
+    } else {
+      console.warn('TinyMCE not loaded — using plain textarea');
+    }
+  </script>
+</head>
+<body class="admin-body">
+  <header class="admin-header">
+    <div class="header-inner">
+      <a href="/admin" class="logo">Blog Admin</a>
+      <nav>
+        <a href="/admin">← Back to Posts</a>
+        <a href="/admin/logout">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <div class="admin-content">
+      <h1>{{ 'Edit Post' if post else 'New Post' }}</h1>
+
+      <!-- File Upload Section -->
+      <div class="upload-section" id="upload-section">
+        <div class="upload-header">
+          <span class="upload-icon">📁</span>
+          <div>
+            <p class="upload-title">Upload a file to populate this post</p>
+            <p class="upload-hint">Supports .md (Markdown), .html, .txt files</p>
+          </div>
+        </div>
+        <div class="upload-dropzone" id="upload-dz">
+          <p>Drop a file here or click to browse</p>
+          <input type="file" id="upload-file" accept=".md,.html,.htm,.txt" hidden>
+        </div>
+        <div class="upload-status" id="upload-status"></div>
+      </div>
+
+      <div class="divider"><span>or write manually below</span></div>
+
+      <form method="POST" action="{{ '/admin/post/' ~ post.id ~ '/edit' if post else '/admin/post/new' }}" class="post-form" id="post-form">
+        <input type="hidden" id="full_html" name="full_html" value="{{ post.full_html if post and post.full_html else '' }}">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" value="{{ post.title if post else '' }}" required>
+        </div>
+
+        <div class="form-group">
+          <label for="content">Content <span class="hint">(supports HTML — paste from uploaded files or write directly)</span></label>
+          <textarea id="content" name="content" style="min-height:400px;width:100%;padding:12px;background:var(--bg-input);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:14px;font-family:monospace;resize:vertical;">{{ post.content if post else '' }}</textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="excerpt">Excerpt <span class="hint">(short summary, shown in post listing)</span></label>
+          <textarea id="excerpt" name="excerpt" rows="3">{{ post.excerpt if post else '' }}</textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="category">Category</label>
+            <input type="text" id="category" name="category" value="{{ post.category_name if post and post.category_name else '' }}" placeholder="e.g. Tutorials">
+          </div>
+          <div class="form-group">
+            <label for="tags">Tags <span class="hint">(comma-separated)</span></label>
+            <input type="text" id="tags" name="tags" value="{{ post.tags if post else '' }}" placeholder="e.g. pdf, converter, tips">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" name="published" {% if post and post.published %}checked{% endif %}>
+            Publish immediately
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            {{ 'Update Post' if post else 'Create Post' }}
+          </button>
+          <a href="/admin" class="btn btn-secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    const dz = document.getElementById('upload-dz');
+    const fi = document.getElementById('upload-file');
+    const status = document.getElementById('upload-status');
+
+    dz.addEventListener('click', () => fi.click());
+    dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('dragover'); });
+    dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
+    dz.addEventListener('drop', e => {
+      e.preventDefault();
+      dz.classList.remove('dragover');
+      if (e.dataTransfer.files[0]) uploadFile(e.dataTransfer.files[0]);
+    });
+    fi.addEventListener('change', () => { if (fi.files[0]) uploadFile(fi.files[0]); });
+
+    function setEditorContent(html) {
+      if (typeof tinymce !== 'undefined' && tinymce.get('content')) {
+        tinymce.get('content').setContent(html);
+      } else {
+        document.getElementById('content').value = html;
+      }
+    }
+
+    function getEditorContent() {
+      if (typeof tinymce !== 'undefined' && tinymce.get('content')) {
+        return tinymce.get('content').getContent();
+      }
+      return document.getElementById('content').value;
+    }
+
+    async function uploadFile(file) {
+      const ext = file.name.split('.').pop().toLowerCase();
+      if (!['md', 'html', 'htm', 'txt'].includes(ext)) {
+        status.innerHTML = '<span class="upload-error">Unsupported file type. Use .md, .html, or .txt</span>';
+        return;
+      }
+
+      status.innerHTML = '<span class="spinner"></span> Uploading...';
+      const fd = new FormData();
+      fd.append('file', file);
+
+      try {
+        const resp = await fetch('/admin/upload', { method: 'POST', body: fd });
+        const data = await resp.json();
+        if (!resp.ok) throw new Error(data.error || 'Upload failed');
+
+        // Set title
+        const titleInput = document.getElementById('title');
+        titleInput.value = data.title;
+
+        // Set content
+        setEditorContent(data.content);
+
+        // Store full HTML for iframe rendering
+        if (data.full_html) {
+          document.getElementById('full_html').value = data.full_html;
+        }
+
+        // Auto-fill excerpt
+        const excerptInput = document.getElementById('excerpt');
+        const tmp = document.createElement('div');
+        tmp.innerHTML = data.content;
+        const text = tmp.textContent || tmp.innerText || '';
+        excerptInput.value = text.substring(0, 200).trim();
+
+        status.innerHTML = '<span class="upload-success">File loaded! Review and save below.</span>';
+        document.getElementById('upload-section').style.opacity = '0.5';
+        document.getElementById('upload-section').style.pointerEvents = 'none';
+      } catch (e) {
+        status.innerHTML = '<span class="upload-error">' + e.message + '</span>';
+      }
+    }
+  </script>
+</body>
+</html>

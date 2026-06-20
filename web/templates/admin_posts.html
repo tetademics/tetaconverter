@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Teta Converter Blog</title>
+  <link rel="icon" type="image/png" href="/static/logo.png"/>
+  <link rel="stylesheet" href="/static/blog.css">
+</head>
+<body class="admin-body">
+  <header class="admin-header">
+    <div class="header-inner">
+      <a href="/admin" class="logo">Blog Admin</a>
+      <nav>
+        <a href="/admin/post/new">+ New Post</a>
+        <a href="/blog" target="_blank">View Blog</a>
+        <a href="/admin/logout">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <div class="admin-content">
+      <h1>Posts</h1>
+
+      {% if posts %}
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for post in posts %}
+          <tr class="{% if not post.published %}draft{% endif %}">
+            <td><a href="/blog/{{ post.slug }}" target="_blank">{{ post.title }}</a></td>
+            <td>{{ post.category_name or '—' }}</td>
+            <td>
+              <span class="status-badge {% if post.published %}published{% else %}draft{% endif %}">
+                {{ 'Published' if post.published else 'Draft' }}
+              </span>
+            </td>
+            <td>{{ post.created_at[:10] }}</td>
+            <td class="actions">
+              <a href="/admin/post/{{ post.id }}/edit" class="btn-sm">Edit</a>
+              <form method="POST" action="/admin/post/{{ post.id }}/toggle" style="display:inline">
+                <button type="submit" class="btn-sm btn-toggle">
+                  {{ 'Unpublish' if post.published else 'Publish' }}
+                </button>
+              </form>
+              <form method="POST" action="/admin/post/{{ post.id }}/delete" style="display:inline"
+                    onsubmit="return confirm('Delete this post?')">
+                <button type="submit" class="btn-sm btn-danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+        <p class="empty">No posts yet. <a href="/admin/post/new">Create your first post</a>.</p>
+      {% endif %}
+    </div>
+  </main>
+</body>
+</html>

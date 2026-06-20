@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+python-docx
+python-multipart
+pillow
+pydub
+openpyxl
+pandas
+moviepy
+tabulate
+xhtml2pdf
+markdown
+imageio-ffmpeg
+jinja2
+bcrypt
+python-slugify
+pypdf

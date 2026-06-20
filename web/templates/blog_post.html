@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>{{ post.title }} — Teta Converter Blog</title>
+  <meta name="description" content="{{ post.excerpt or post.content[:160]|replace('<', '')|replace('>', '') }}">
+  <meta property="og:title" content="{{ post.title }}">
+  <meta property="og:description" content="{{ post.excerpt or post.content[:160] }}">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="{{ request.base_url }}blog/{{ post.slug }}">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/png" href="/static/logo.png"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "text-secondary": "#64748B",
+            "outline": "#777587",
+            "secondary-fixed-dim": "#4edea3",
+            "on-secondary-fixed": "#002113",
+            "on-tertiary-fixed": "#351000",
+            "surface-dim": "#d9dadb",
+            "text-primary": "#1E293B",
+            "tertiary": "#7e3000",
+            "surface-container-low": "#f3f4f5",
+            "on-secondary-fixed-variant": "#005236",
+            "tertiary-fixed": "#ffdbcc",
+            "outline-variant": "#c7c4d8",
+            "inverse-on-surface": "#f0f1f2",
+            "surface-container-lowest": "#ffffff",
+            "primary": "#3525cd",
+            "on-primary-fixed": "#0f0069",
+            "primary-fixed": "#e2dfff",
+            "surface-container": "#edeeef",
+            "secondary": "#006c49",
+            "on-tertiary-fixed-variant": "#7b2f00",
+            "on-primary": "#ffffff",
+            "surface": "#f8f9fa",
+            "on-primary-container": "#dad7ff",
+            "on-secondary-container": "#00714d",
+            "surface-bright": "#f8f9fa",
+            "secondary-fixed": "#6ffbbe",
+            "on-tertiary": "#ffffff",
+            "on-error": "#ffffff",
+            "on-surface-variant": "#464555",
+            "on-primary-fixed-variant": "#3323cc",
+            "inverse-surface": "#2e3132",
+            "on-background": "#191c1d",
+            "on-surface": "#191c1d",
+            "surface-variant": "#e1e3e4",
+            "background": "#f8f9fa",
+            "primary-container": "#4f46e5",
+            "secondary-container": "#6cf8bb",
+            "surface-white": "#FFFFFF",
+            "primary-fixed-dim": "#c3c0ff",
+            "surface-container-highest": "#e1e3e4",
+            "surface-container-high": "#e7e8e9",
+            "on-tertiary-container": "#ffd2be",
+            "on-error-container": "#93000a",
+            "surface-tint": "#4d44e3",
+            "on-secondary": "#ffffff",
+            "inverse-primary": "#c3c0ff",
+            "error-container": "#ffdad6",
+            "tertiary-container": "#a44100",
+            "tertiary-fixed-dim": "#ffb695",
+            "error-red": "#EF4444",
+            "error": "#ba1a1a",
+            "border-subtle": "#E2E8F0"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-mobile": "1rem",
+            "section-gap": "4rem",
+            "gutter": "1.5rem",
+            "container-max": "1200px",
+            "element-gap": "1rem",
+            "article-max": "720px"
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    /* Simple modern fallback styles for inline blog content */
+    .blog-rich-content h1, .blog-rich-content h2 {
+      font-weight: 700; color: #1E293B; margin-top: 2rem; margin-bottom: 1rem; font-size: 1.5rem; border-b: 1px solid #E2E8F0; padding-bottom: 0.5rem;
+    }
+    .blog-rich-content h3 {
+      font-weight: 600; color: #1E293B; margin-top: 1.5rem; margin-bottom: 0.75rem; font-size: 1.25rem;
+    }
+    .blog-rich-content p {
+      color: #64748B; line-height: 1.75; margin-bottom: 1.5rem; font-size: 1rem;
+    }
+    .blog-rich-content ul {
+      list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; color: #64748B; space-y: 0.5rem;
+    }
+    .blog-rich-content li {
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body class="bg-background text-text-primary antialiased font-body-md min-h-screen flex flex-col pt-14">
+
+  <!-- TopNavBar -->
+  <header class="bg-surface-white border-b border-border-subtle fixed top-0 left-0 w-full z-40 shadow-sm">
+    <div class="flex items-center justify-between px-4 md:px-6 h-14 max-w-[1200px] mx-auto">
+      <div class="flex items-center gap-3">
+        <a class="font-bold text-primary flex items-center gap-2" href="/">
+          <img src="/static/logo.png" alt="Teta Converter" class="h-8 w-8 rounded-lg">
+          <span class="text-base md:text-lg">Teta Converter</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-5 ml-4">
+          <a class="text-text-secondary text-sm hover:text-primary transition-colors" href="/">Converter</a>
+          <a class="text-text-secondary text-sm hover:text-primary transition-colors" href="/pdf-tools">PDF Tools</a>
+          <a class="text-primary text-sm font-semibold border-b-2 border-primary pb-0.5" href="/blog">Blog</a>
+        </nav>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="https://selar.com/showlove/tetadigitals?currency=USD" target="_blank" class="hidden md:flex items-center gap-1.5 border border-border-subtle bg-surface-container text-text-primary px-3 py-1.5 rounded-lg text-xs hover:bg-surface-variant transition-colors active:scale-95">
+          <span class="material-symbols-outlined text-tertiary text-base" style="font-variation-settings: 'FILL' 1;">local_cafe</span>
+          Buy me a coffee
+        </a>
+        <button id="mobile-menu-btn" class="md:hidden text-text-primary p-1">
+          <span class="material-symbols-outlined text-2xl">menu</span>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden border-t border-border-subtle bg-surface-white px-4 py-3 flex flex-col gap-2">
+      <a class="text-text-secondary text-sm py-2 hover:text-primary transition-colors" href="/">Converter</a>
+      <a class="text-text-secondary text-sm py-2 hover:text-primary transition-colors" href="/pdf-tools">PDF Tools</a>
+      <a class="text-primary text-sm py-2 font-semibold" href="/blog">Blog</a>
+      <a href="https://selar.com/showlove/tetadigitals?currency=USD" target="_blank" class="flex items-center gap-1.5 text-tertiary text-sm py-2 font-semibold">
+        <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">local_cafe</span>
+        Buy me a coffee
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content Canvas -->
+  <main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-gutter py-12">
+    <!-- Article Header -->
+    <header class="max-w-article-max mx-auto text-center mb-10">
+      {% if post.category_name %}
+        <span class="inline-block px-4 py-1.5 bg-surface-container-low text-text-secondary text-xs font-bold uppercase tracking-wider rounded-full mb-4 border border-border-subtle">{{ post.category_name }}</span>
+      {% endif %}
+      <h1 class="text-3xl md:text-4xl font-extrabold text-text-primary mb-6 leading-tight">{{ post.title }}</h1>
+      <div class="flex items-center justify-center gap-4 text-text-secondary text-sm">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-text-secondary text-xl">account_circle</span>
+          <span class="font-semibold text-text-primary">Sarah Jenkins</span>
+        </div>
+        <span>•</span>
+        <time datetime="{{ post.created_at }}">{{ post.created_at[:10] }}</time>
+      </div>
+    </header>
+
+    <!-- Article Content -->
+    <article class="max-w-article-max mx-auto bg-surface-white border border-border-subtle rounded-2xl p-6 md:p-10 shadow-sm">
+      <div class="post-content">
+        {% if post.full_html %}
+          <iframe id="post-iframe" class="w-full border-0 min-h-[600px]" sandbox="allow-same-origin allow-scripts" scrolling="no"></iframe>
+          <script>
+            (function() {
+              var iframe = document.getElementById('post-iframe');
+              var doc = iframe.contentDocument || iframe.contentWindow.document;
+              doc.open();
+              doc.write({{ post.full_html|tojson }});
+              doc.close();
+              // Auto-resize iframe to content height
+              function resize() {
+                try {
+                  var h = doc.body.scrollHeight || doc.documentElement.scrollHeight;
+                  iframe.style.height = Math.max(h, 600) + 'px';
+                } catch(e) {}
+              }
+              iframe.onload = resize;
+              setTimeout(resize, 500);
+              setInterval(resize, 2000);
+            })();
+          </script>
+        {% else %}
+          <div class="blog-rich-content">
+            {{ post.content|safe }}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Back Navigation -->
+      <div class="mt-10 pt-6 border-t border-border-subtle flex">
+        <a href="/blog" class="font-bold text-sm text-primary flex items-center gap-1 hover:underline">
+          <span class="material-symbols-outlined text-sm font-bold">arrow_back</span>
+          Back to Blog
+        </a>
+      </div>
+    </article>
+
+    <!-- Related Posts Section -->
+    {% if recent_posts %}
+      <section class="max-w-container-max mx-auto mt-16 pt-12 border-t border-border-subtle">
+        <h3 class="text-2xl font-bold tracking-tight text-text-primary mb-8 text-center md:text-left">Recent Articles</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {% for rp in recent_posts[:3] %}
+            <a class="group block bg-surface-white border border-border-subtle rounded-xl overflow-hidden hover:border-primary transition-all duration-200 shadow-sm" href="/blog/{{ rp.slug }}">
+              <div class="aspect-[16/9] w-full overflow-hidden bg-surface-container relative border-b border-border-subtle flex items-center justify-center">
+                <span class="material-symbols-outlined text-outline-variant text-5xl group-hover:scale-105 transition-transform duration-300">article</span>
+              </div>
+              <div class="p-5">
+                <h4 class="font-bold text-base text-text-primary mb-2 group-hover:text-primary transition-colors line-clamp-2 leading-snug">{{ rp.title }}</h4>
+                <p class="text-xs text-text-secondary line-clamp-2 leading-relaxed">{{ rp.excerpt or '' }}</p>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-surface-white border-t border-border-subtle w-full py-6 px-4 md:px-6 mt-auto">
+    <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="flex flex-col items-center md:items-start gap-1 text-center md:text-left">
+        <span class="font-bold text-sm text-primary flex items-center gap-1">
+          <img src="/static/logo.png" alt="Teta Converter" class="h-5 w-5 rounded">
+          Teta Converter
+        </span>
+        <p class="text-xs text-text-secondary">&copy; 2026 Teta Converter. Powered by <a href="#" class="hover:underline font-semibold text-text-primary">TetaDigitals</a></p>
+      </div>
+      <nav class="flex flex-wrap justify-center gap-4 text-xs text-text-secondary">
+        <a class="hover:text-primary transition-colors" href="/">Converter</a>
+        <a class="hover:text-primary transition-colors" href="/pdf-tools">PDF Tools</a>
+        <a class="hover:text-primary transition-colors" href="/blog">Blog</a>
+        <a class="hover:text-primary transition-colors text-amber-500 font-semibold" href="https://selar.com/showlove/tetadigitals?currency=USD" target="_blank">Buy me a coffee</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>
